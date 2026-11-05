@@ -1,0 +1,19 @@
+export const PACKAGE_TEXT = Object.freeze({
+    lookAndFeelName: Object.freeze({ light: "Windows 11 Light", dark: "Windows 11 Dark" }),
+    lookAndFeelDescription: Object.freeze({
+        light: "Windows 11 style global theme, light: centered taskbar, Fluent icons, rounded flyouts",
+        dark: "Windows 11 style global theme, dark: centered taskbar, Fluent icons, rounded flyouts",
+    }),
+    desktopThemeName: "Windows 11",
+    desktopThemeDescription: "Windows 11 style Plasma style that follows the active color scheme",
+    colorSchemeName: Object.freeze({ light: "Windows 11 Light", dark: "Windows 11 Dark" }),
+    auroraeName: Object.freeze({ light: "Windows 11 Light", dark: "Windows 11 Dark" }),
+    iconThemeName: Object.freeze({ light: "Windows 11", dark: "Windows 11 Dark" }),
+    iconThemeComment: "Fluent UI System Icons and original Windows 11 style artwork",
+    cursorThemeName: Object.freeze({ light: "Windows 11 Cursors", dark: "Windows 11 Cursors Dark" }),
+    cursorThemeComment: "Original Windows 11 style cursors",
+    wallpaperName: "Windows 11 Ribbons",
+    sddmName: "Windows 11",
+    sddmDescription: "Windows 11 style login screen",
+    konsoleName: Object.freeze({ light: "Windows 11 Light", dark: "Windows 11 Dark" }),
+});
