@@ -2,7 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseFont, contoursToPath, formatNumber } from "../../src/domain/font/truetype.mjs";
+import { parseFont, contoursToPath } from "../../src/domain/font/truetype.mjs";
+import { formatNumber } from "../../src/domain/numbers.mjs";
 import { GLYPHS, ROOT } from "./defaults.mjs";
 
 const font = parseFont(new Uint8Array(readFileSync(join(ROOT, "assets/fonts/FluentSystemIcons-Regular.ttf"))));

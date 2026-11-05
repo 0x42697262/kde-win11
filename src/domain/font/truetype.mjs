@@ -1,3 +1,5 @@
+import { formatNumber } from "../numbers.mjs";
+
 const TABLE_DIRECTORY_OFFSET = 12;
 const TABLE_RECORD_SIZE = 16;
 const TAG_LENGTH = 4;
@@ -37,7 +39,6 @@ const COMPOSITE_HAS_XY_SCALE = 0x0040;
 const COMPOSITE_HAS_TWO_BY_TWO = 0x0080;
 const COMPOSITE_HEADER_SIZE = 4;
 const F2DOT14_DIVISOR = 16384;
-const PATH_DECIMALS = 3;
 
 /** @typedef {{ x: number, y: number, onCurve: boolean }} GlyphPoint */
 /** @typedef {GlyphPoint[]} Contour */
@@ -340,15 +341,6 @@ function readComposite(view, start, loadContours) {
         });
     }
     return result;
-}
-
-/**
- * @param {number} value
- * @returns {string}
- */
-export function formatNumber(value) {
-    const rounded = Number(value.toFixed(PATH_DECIMALS));
-    return String(rounded === 0 ? 0 : rounded);
 }
 
 /**
