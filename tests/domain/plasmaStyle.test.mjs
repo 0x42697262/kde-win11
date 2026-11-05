@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { renderDesktopTheme } from "../../src/domain/kde/desktopTheme.mjs";
 import { renderColorScheme } from "../../src/domain/kde/colorScheme.mjs";
+import { renderKonsoleScheme } from "../../src/domain/kde/konsole.mjs";
 import { renderIni } from "../../src/domain/kde/ini.mjs";
 import { DEFAULTS } from "./defaults.mjs";
 import { elementIds, looksWellFormed } from "./svgHelpers.mjs";
@@ -57,6 +58,12 @@ test("color schemes carry every KDE color group and follow the accent", () => {
     assert.match(custom, /DecorationFocus=217,0,0/);
 });
 
-test("ini groups join nested headers and list values", () => {
+test("konsole schemes define all sixteen colors", () => {
+    const scheme = renderKonsoleScheme(DEFAULTS.colors.terminalDark, "Windows 11 Dark");
+    for (let index = 0; index < 8; index += 1) {
+        assert.ok(scheme.includes(`[Color${index}]`));
+        assert.ok(scheme.includes(`[Color${index}Intense]`));
+    }
+    assert.match(scheme, /\[Background\]\nColor=12,12,12/);
     assert.equal(renderIni([{ path: ["A", "B"], entries: [["key", ["x", "y"]]] }]), "[A][B]\nkey=x,y\n");
 });
