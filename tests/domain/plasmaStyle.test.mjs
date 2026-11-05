@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { renderDesktopTheme } from "../../src/domain/kde/desktopTheme.mjs";
+import { renderColorScheme } from "../../src/domain/kde/colorScheme.mjs";
+import { renderIni } from "../../src/domain/kde/ini.mjs";
 import { DEFAULTS } from "./defaults.mjs";
 import { elementIds, looksWellFormed } from "./svgHelpers.mjs";
 
@@ -45,4 +47,16 @@ test("opaque surfaces are fully opaque and translucent ones are lighter", () => 
     const opacity = (/** @type {string} */ path) => Number((contentOf(files, path).match(/id="center"><rect[^>]*\/><path [^>]*fill-opacity="([\d.]+)"/) ?? ["", "1"])[1]);
     assert.equal(opacity("opaque/dialogs/background.svg"), 1);
     assert.ok(opacity("translucent/dialogs/background.svg") < opacity("dialogs/background.svg"));
+});
+
+test("color schemes carry every KDE color group and follow the accent", () => {
+    const light = renderColorScheme("light", DEFAULTS, { id: "KdeWin11Light", name: "Windows 11 Light" });
+    ["[Colors:Window]", "[Colors:View]", "[Colors:Button]", "[Colors:Selection]", "[Colors:Tooltip]", "[Colors:Complementary]", "[Colors:Header]", "[Colors:Header][Inactive]", "[WM]", "[General]"].forEach((group) => assert.ok(light.includes(group), group));
+    assert.match(light, /\[Colors:Window\]\n(?:.*\n)*?BackgroundNormal=243,243,243/);
+    const custom = renderColorScheme("light", Object.assign({}, DEFAULTS, { accent: { color: "#ff0000" } }), { id: "x1", name: "x1" });
+    assert.match(custom, /DecorationFocus=217,0,0/);
+});
+
+test("ini groups join nested headers and list values", () => {
+    assert.equal(renderIni([{ path: ["A", "B"], entries: [["key", ["x", "y"]]] }]), "[A][B]\nkey=x,y\n");
 });
