@@ -89,3 +89,10 @@ export const WALLPAPER_SIZE = Object.freeze({ width: 3840, height: 2160 });
 export const PREVIEW_SIZE = Object.freeze({ width: 640, height: 360 });
 export const FULLSCREEN_PREVIEW_SIZE = Object.freeze({ width: 1920, height: 1080 });
 export const WALLPAPER_SCREENSHOT_SIZE = Object.freeze({ width: 400, height: 225 });
+
+export const KVANTUM_IDS = Object.freeze({
+    [Variant.Light]: "KdeWin11Light",
+    [Variant.Dark]: "KdeWin11Dark",
+});
+export const KVANTUM_ROOT = "Kvantum";
+export const KVANTUM_STYLE_NAME = "kvantum";
