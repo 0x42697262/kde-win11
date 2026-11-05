@@ -2,6 +2,7 @@ import { BLACK_HEX, FRAME_CENTER_SIZE, HINT_THICKNESS, SHADOW_FALLOFF, SHEET_GAP
 import { element, hintRect, invisibleRect, paintAttributes } from "./document.mjs";
 import { insetRect, intersectRects, rectPath, roundedRectCellPath, shrinkRadii } from "./shapes.mjs";
 import { formatAlpha } from "../theme/color.mjs";
+import { formatNumber } from "../numbers.mjs";
 
 /** @typedef {import("./document.mjs").Rect} Rect */
 /** @typedef {import("./document.mjs").Paint} Paint */
@@ -28,6 +29,7 @@ import { formatAlpha } from "../theme/color.mjs";
 /** @typedef {{ prefix: string, extents: Sides, radius: number, color: ColorToken }} ShadowSpec */
 
 const MASK_PREFIX = "mask";
+const FAR_DISTANCE = 1048576;
 const SHADOW_PREFIX = "shadow";
 const NO_SIDES = Object.freeze({ left: 0, top: 0, right: 0, bottom: 0 });
 
@@ -183,7 +185,7 @@ export function maskOf(spec) {
  * @param {ColorToken} color
  * @returns {string}
  */
-function falloffStops(start, color) {
+export function falloffStops(start, color) {
     const lead = start > 0 ? [element("stop", { offset: 0, "stop-color": color.hex, "stop-opacity": 0 }), element("stop", { offset: Math.max(start - Number.EPSILON, 0), "stop-color": color.hex, "stop-opacity": 0 })] : [];
     return lead.concat(SHADOW_FALLOFF.map((step) => element("stop", {
         offset: start + step.position * (1 - start),
@@ -297,3 +299,63 @@ export function composeSheet(items) {
 }
 
 export { NO_SIDES };
+
+/**
+ * @param {string} idPrefix
+ * @param {Rect} cell
+ * @param {Rect} window
+ * @param {Radii} radii
+ * @param {Sides} extents
+ * @param {ColorToken} color
+ * @returns {{ body: string, defs: string }}
+ */
+export function shadowAround(idPrefix, cell, window, radii, extents, color) {
+    const right = window.x + window.width;
+    const bottom = window.y + window.height;
+    const far = FAR_DISTANCE;
+    /** @type {{ name: string, region: Rect, gradient: (id: string) => string }[]} */
+    const regions = [];
+    /**
+     * @param {string} name
+     * @param {Rect} region
+     * @param {number} centerX
+     * @param {number} centerY
+     * @param {number} radius
+     * @param {number} reachX
+     * @param {number} reachY
+     */
+    const corner = (name, region, centerX, centerY, radius, reachX, reachY) => {
+        const start = reachX + reachY > 0 ? (radius * 2) / (reachX + reachY) : 0;
+        regions.push({ name, region, gradient: (id) => element("radialGradient", { id, cx: 0, cy: 0, r: 1, gradientUnits: "userSpaceOnUse", gradientTransform: `matrix(${formatNumber(reachX)} 0 0 ${formatNumber(reachY)} ${formatNumber(centerX)} ${formatNumber(centerY)})` }, falloffStops(start, color)) });
+    };
+    /**
+     * @param {string} name
+     * @param {Rect} region
+     * @param {{ x1: number, y1: number, x2: number, y2: number }} direction
+     */
+    const edge = (name, region, direction) => {
+        regions.push({ name, region, gradient: (id) => element("linearGradient", Object.assign({ id, gradientUnits: "userSpaceOnUse" }, direction), falloffStops(0, color)) });
+    };
+    const leftInner = window.x + radii.topLeft;
+    const topInner = window.y + radii.topLeft;
+    corner("tl", { x: -far, y: -far, width: far + leftInner, height: far + topInner }, leftInner, topInner, radii.topLeft, radii.topLeft + extents.left, radii.topLeft + extents.top);
+    corner("tr", { x: right - radii.topRight, y: -far, width: far, height: far + window.y + radii.topRight }, right - radii.topRight, window.y + radii.topRight, radii.topRight, radii.topRight + extents.right, radii.topRight + extents.top);
+    corner("br", { x: right - radii.bottomRight, y: bottom - radii.bottomRight, width: far, height: far }, right - radii.bottomRight, bottom - radii.bottomRight, radii.bottomRight, radii.bottomRight + extents.right, radii.bottomRight + extents.bottom);
+    corner("bl", { x: -far, y: bottom - radii.bottomLeft, width: far + window.x + radii.bottomLeft, height: far }, window.x + radii.bottomLeft, bottom - radii.bottomLeft, radii.bottomLeft, radii.bottomLeft + extents.left, radii.bottomLeft + extents.bottom);
+    edge("t", { x: leftInner, y: -far, width: right - radii.topRight - leftInner, height: far + window.y }, { x1: 0, y1: window.y, x2: 0, y2: window.y - extents.top });
+    edge("b", { x: window.x + radii.bottomLeft, y: bottom, width: right - radii.bottomRight - window.x - radii.bottomLeft, height: far }, { x1: 0, y1: bottom, x2: 0, y2: bottom + extents.bottom });
+    edge("l", { x: -far, y: topInner, width: far + window.x, height: bottom - radii.bottomLeft - topInner }, { x1: window.x, y1: 0, x2: window.x - extents.left, y2: 0 });
+    edge("r", { x: right, y: window.y + radii.topRight, width: far, height: bottom - radii.bottomRight - window.y - radii.topRight }, { x1: right, y1: 0, x2: right + extents.right, y2: 0 });
+    /** @type {string[]} */
+    const defs = [];
+    const body = regions.map((entry) => {
+        const visible = intersectRects(entry.region, cell);
+        if (!visible) {
+            return "";
+        }
+        const id = `${idPrefix}-${entry.name}`;
+        defs.push(entry.gradient(id));
+        return element("path", { d: rectPath(visible), fill: `url(#${id})` });
+    }).join("");
+    return { body, defs: defs.join("") };
+}
