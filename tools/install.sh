@@ -150,5 +150,19 @@ if [ "$kvantum" -eq 1 ]; then
     run_if_present kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle "$KDE_WIN11_KVANTUM_STYLE"
     echo "Kvantum style selected; restart open apps to see it."
 fi
+if command -v kwriteconfig6 >/dev/null 2>&1; then
+    menu_groups=()
+    for group in $KDE_WIN11_DESKTOP_MENU_GROUPS; do
+        menu_groups+=(--group "$group")
+    done
+    kwriteconfig6 --file "$KDE_WIN11_DESKTOP_MENU_FILE" "${menu_groups[@]}" --key "$KDE_WIN11_DESKTOP_MENU_TRIGGER" "$KDE_WIN11_DESKTOP_MENU_PLUGIN"
+    IFS=',' read -r -a menu_entries <<<"$KDE_WIN11_DESKTOP_MENU"
+    for entry in "${menu_entries[@]}"; do
+        kwriteconfig6 --file "$KDE_WIN11_DESKTOP_MENU_FILE" "${menu_groups[@]}" --group "$KDE_WIN11_DESKTOP_MENU_TRIGGER" --key "${entry%%=*}" --type bool "${entry#*=}"
+    done
+    echo "Desktop right-click menu updated; it applies after you log out or run: systemctl --user restart plasma-plasmashell"
+else
+    echo "skip: kwriteconfig6 not found, desktop right-click menu unchanged" >&2
+fi
 run_if_present dbus-send --session --type=signal /KWin org.kde.KWin.reloadConfig
 echo "kde-win11 $variant applied."
