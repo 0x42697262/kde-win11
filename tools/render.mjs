@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { FULLSCREEN_PREVIEW_SIZE, LOOK_AND_FEEL_IDS, PACKAGES_DIRECTORY, PREVIEW_SIZE, PackageRoot, RenderedImage, WALLPAPER_ID, WALLPAPER_SCREENSHOT_SIZE, WALLPAPER_SIZE } from "../src/domain/catalog/packages.mjs";
+import { FULLSCREEN_PREVIEW_SIZE, LOOK_AND_FEEL_IDS, PACKAGES_DIRECTORY, PREVIEW_SIZE, PackageRoot, RenderedImage, SDDM_THEME_ID, WALLPAPER_ID, WALLPAPER_SCREENSHOT_SIZE, WALLPAPER_SIZE } from "../src/domain/catalog/packages.mjs";
 import { VARIANTS } from "../src/domain/catalog/enums.mjs";
 import { renderPreviewHtml } from "../src/domain/kde/preview.mjs";
 import { WALLPAPER_RENDERS } from "../src/domain/kde/wallpaper.mjs";
@@ -44,6 +44,7 @@ for (const wallpaper of WALLPAPER_RENDERS) {
     await capture(pathToFileURL(join(wallpaperRoot, wallpaper.source)).href, WALLPAPER_SIZE, WALLPAPER_SIZE, join(wallpaperRoot, wallpaper.target));
 }
 await capture(pathToFileURL(join(wallpaperRoot, WALLPAPER_RENDERS[0]?.source ?? "")).href, WALLPAPER_SIZE, WALLPAPER_SCREENSHOT_SIZE, join(wallpaperRoot, RenderedImage.WallpaperScreenshot));
+await capture(pathToFileURL(join(wallpaperRoot, WALLPAPER_RENDERS[1]?.source ?? "")).href, WALLPAPER_SIZE, FULLSCREEN_PREVIEW_SIZE, join(packagesRoot, PackageRoot.Sddm, SDDM_THEME_ID, RenderedImage.SddmBackground));
 
 for (const variant of VARIANTS) {
     const html = renderPreviewHtml(variant, values, pathToFileURL(packagesRoot).href);

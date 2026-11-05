@@ -8,5 +8,7 @@ export const TEXT = Object.freeze({
         restart: "Restart",
         shutDown: "Shut down",
         pressToUnlock: "Press any key or click to sign in",
+        timeFormat: "h:mm",
+        dateFormat: "dddd, MMMM d",
     }),
 });

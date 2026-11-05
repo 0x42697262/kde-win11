@@ -44,3 +44,15 @@ export const PLASMA_WIDGETS = Object.freeze({
 });
 export const START_ICON_NAME = "start-here-kde-win11";
 export const KICKOFF_SHORTCUT = "Alt+F1";
+
+export const SDDM_ICONS = Object.freeze({
+    powerIcon: { file: "icons/power.svg", glyph: "power" },
+    restartIcon: { file: "icons/restart.svg", glyph: "arrow_clockwise" },
+    sleepIcon: { file: "icons/sleep.svg", glyph: "weather_moon" },
+    arrowIcon: { file: "icons/arrow.svg", glyph: "arrow_right" },
+    personIcon: { file: "icons/person.svg", glyph: "person" },
+});
+export const SDDM_ICON_SIZE = 24;
+export const SDDM_API_VERSION = "2.0";
+export const SDDM_QT_VERSION = 6;
+export const CLOCK_TICK_MILLISECONDS = 1000;

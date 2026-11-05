@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=Windows 11
+Description=Windows 11 style login screen
+Author=0x42697262
+License=GPL-3.0-only
+Type=sddm-theme
+Version=1.0.0
+Website=https://github.com/0x42697262/kde-win11
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=kde-win11
+Theme-API=2.0
+QtVersion=6
