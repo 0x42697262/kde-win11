@@ -334,3 +334,5 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `text.login.restart` | string | `"Restart"` |  | Text `restart` |
 | `text.login.shutDown` | string | `"Shut down"` |  | Text `shutDown` |
 | `text.login.pressToUnlock` | string | `"Press any key or click to sign in"` |  | Text `pressToUnlock` |
+| `text.login.timeFormat` | string | `"h:mm"` |  | Text `timeFormat` |
+| `text.login.dateFormat` | string | `"dddd, MMMM d"` |  | Text `dateFormat` |

@@ -52,7 +52,10 @@ tools/ entry points  ->  src/adapters (files, fonts)  ->  src/domain (pure .mjs)
 | `npm run gen` | Regenerate `packages/` and `docs/configuration.md` from the defaults |
 | `npm run build -- --settings <file> --out <dir>` | Build every package with your settings into a data directory |
 | `npm run render` | Render wallpaper JPEGs, global theme previews and `docs/screenshots/` with Playwright |
-| `tools/ci/kde-check.sh` | xmllint every SVG, install the packages with `kpackagetool6` and load each splash with Qt's `qml` runner (needs plasma-workspace, qt6-declarative, libxml2) |
+| `tools/ci/kde-check.sh` | xmllint every SVG, install the packages with `kpackagetool6` and load the splash and login QML (needs plasma-workspace, qt6-declarative, pyside6, libxml2) |
+| `tools/ci/qml-preview.py splash\|login <qml> <prefix>` | Load one QML file, screenshot it and fail on any QML warning |
+| `tools/demo.sh` | Record `docs/media/demo.mp4` and `demo.gif`: login and splash QML frames through `qml-preview.py --record`, desktop frames through `tools/demo.mjs`, joined with ffmpeg crossfades |
+| `tools/install.sh` | Copy, apply or remove the theme; rebuilds with your settings when Node is available |
 
 Generated files are never edited by hand: everything under `packages/` and
 `docs/configuration.md`. Rendered images (`*.jpg`, `preview.png`,
@@ -79,6 +82,10 @@ Generated files are never edited by hand: everything under `packages/` and
 | KSplash sets the root object's `stage` property as startup advances; Breeze starts its intro at stage 2 | plasma-workspace `ksplashqml`, Breeze splash |
 | The layout script runs in Plasma's scripting engine with `Panel`, `addWidget`, `currentConfigGroup`, `writeConfig`, `desktops()` and `userDataPath()`; it only runs when the user keeps "Use desktop layout from theme" checked | Plasma desktop scripting API |
 | Wallpaper image packages use `contents/images/<W>x<H>.<ext>` and `contents/images_dark/` for the dark variant | plasma-workspace image wallpaper |
+| SDDM themes are a folder with `metadata.desktop` (`[SddmGreeterTheme]`, `MainScript`, `ConfigFile`, `QtVersion=6`), `theme.conf` and QML that reads `sddm`, `userModel`, `sessionModel` and `config` context properties | SDDM theme documentation, SDDM 0.21 |
+| Qt Quick's software backend does not draw `MultiEffect`, so the login wallpaper stays visible under the blur and avatars fall back to a glyph | Local run with `QSG_INFO=1` under `offscreen` |
+| `tools/ci/qml-preview.py` loads the splash and login QML with mocked SDDM objects under Qt 6.12; both render with zero warnings, also on Mesa llvmpipe OpenGL | Local run, PySide6 6.12 |
+| `kpackagetool6` installs both global themes, both Plasma styles and the wallpaper on Arch Linux | CI `kde` job |
 | **Unverified in a live session:** `panel.lengthMode`, `panel.floating` and `userDataPath()` returning `$HOME` in the layout script; both property writes are wrapped in `try` | Plasma desktop scripting API docs |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
@@ -104,4 +111,7 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Global theme | Install everything, System Settings → Global Theme → "Windows 11 Light" with "Use desktop layout from theme" checked | Bottom 48 px taskbar with Start, pinned apps centered, tray and a two-line clock on the right; ribbon wallpaper; Windows 11 colors, icons, cursors and decorations |
 | Global theme | `{"values":{"taskbar":{"alignment":"left"}}}`, rebuild and reapply | Start and pinned apps at the left edge |
 | Splash | Log out and back in | Start glyph with a spinning accent ring on the window color, fading in |
+| Login screen | `tools/install.sh --sddm`, then `sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/kde-win11` | Lock clock over the wallpaper; a key shows the blurred sign-in with avatar and password; a wrong password shows the error; Escape returns |
+| Installer | `tools/install.sh --dark`, then `tools/install.sh --uninstall` | Dark global theme applied with the Windows 11 taskbar; uninstall removes every installed folder |
+| Installer | Put an invalid value in `settings.json`, run `tools/install.sh --no-apply` | One `settings.invalid` line; the rest of the settings apply |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |

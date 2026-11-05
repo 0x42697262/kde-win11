@@ -29,7 +29,7 @@ directory. Node only builds and checks them.
 | `src/domain/kde` | One renderer per KDE package type (`desktopTheme`, `colorScheme`, `konsole`, …), plus `assemble.mjs` |
 | `src/domain/docs` | Generated documentation |
 | `src/adapters` | Node file system access |
-| `src/qml` | Hand-written splash (and login) QML; values come from a generated `Tokens.qml` beside it |
+| `src/qml` | Hand-written splash and SDDM login QML; values come from a generated `Tokens.qml` beside each |
 | `tools` | `generate`, `build`, `render`, `check-banned` entry points; `tools/ci` scripts |
 | `tests/domain` | `node --test` for every domain module |
 | `packages` | Generated output, laid out like `$XDG_DATA_HOME` |
@@ -46,3 +46,5 @@ directory. Node only builds and checks them.
 | `icons/kde-win11`, `icons/kde-win11-dark` | `$XDG_DATA_HOME/icons/` | `iconTheme.mjs`, `iconArtwork.mjs` |
 | `icons/kde-win11-cursors`, `icons/kde-win11-cursors-dark` | `$XDG_DATA_HOME/icons/` | `cursorTheme.mjs` |
 | `konsole/KdeWin11{Light,Dark}.colorscheme` | `$XDG_DATA_HOME/konsole/` | `konsole.mjs` |
+| `sddm/themes/kde-win11` | `/usr/share/sddm/themes/` (with `--sddm`) | `sddm.mjs`, `src/qml/sddm` |
+| `manifest.env` | Read by `tools/install.sh` | `manifest.mjs` |

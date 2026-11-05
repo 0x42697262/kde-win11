@@ -25,7 +25,7 @@ jobs:
       image: archlinux:latest
     steps:
       - name: Install KDE packaging tools and Qt
-        run: pacman -Syu --noconfirm --needed plasma-workspace kpackage qt6-declarative qt6-svg libxml2 git
+        run: pacman -Syu --noconfirm --needed plasma-workspace kpackage qt6-declarative qt6-svg qt6-5compat pyside6 libxml2 git
       - uses: actions/checkout@v4
       - name: Install and load the generated packages
         run: tools/ci/kde-check.sh
