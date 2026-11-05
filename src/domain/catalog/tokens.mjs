@@ -54,6 +54,7 @@ export const LIGHT_BASE = Object.freeze({
     subtleFillHover: tone(BLACK, 0.0373),
     subtleFillPressed: tone(BLACK, 0.0241),
     taskIndicator: tone("#868686"),
+    taskAttention: tone("#ff8c00", 0.28),
     titlebar: tone("#f3f3f3"),
     titlebarInactive: tone("#f3f3f3"),
     titleText: tone("#1a1a1a"),
@@ -96,6 +97,7 @@ export const DARK_BASE = Object.freeze({
     subtleFillHover: tone(WHITE, 0.0605),
     subtleFillPressed: tone(WHITE, 0.0419),
     taskIndicator: tone("#9d9d9d"),
+    taskAttention: tone("#ff8c00", 0.34),
     titlebar: tone("#202020"),
     titlebarInactive: tone("#202020"),
     titleText: tone(WHITE),
@@ -168,6 +170,13 @@ export const PANEL = Object.freeze({
     taskFocusIndicatorInset: metric(14, 0, 48),
     taskMargin: metric(3, 0, 12),
     taskRadius: metric(4, 0, 16),
+    taskPadding: metric(6, 0, 24),
+});
+
+export const BLUR = Object.freeze({
+    contrast: metric(0.2, 0, 2),
+    intensity: metric(1.4, 0, 4),
+    saturation: metric(1.8, 0, 4),
 });
 
 export const FLYOUT = Object.freeze({
@@ -198,7 +207,7 @@ export const LIST_ITEM = Object.freeze({
     radius: metric(4, 0, 16),
     padding: metric(6, 0, 24),
     selectionPillWidth: metric(3, 0, 8),
-    selectionPillHeight: metric(16, 0, 48),
+    selectionPillInset: metric(10, 0, 48),
 });
 
 export const TITLEBAR = Object.freeze({

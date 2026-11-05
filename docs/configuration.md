@@ -100,6 +100,7 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `colors.light.subtleFillHover` | color | `"#0a000000"` |  | Color `subtleFillHover` as #RRGGBB or #AARRGGBB |
 | `colors.light.subtleFillPressed` | color | `"#06000000"` |  | Color `subtleFillPressed` as #RRGGBB or #AARRGGBB |
 | `colors.light.taskIndicator` | color | `"#ff868686"` |  | Color `taskIndicator` as #RRGGBB or #AARRGGBB |
+| `colors.light.taskAttention` | color | `"#47ff8c00"` |  | Color `taskAttention` as #RRGGBB or #AARRGGBB |
 | `colors.light.titlebar` | color | `"#fff3f3f3"` |  | Color `titlebar` as #RRGGBB or #AARRGGBB |
 | `colors.light.titlebarInactive` | color | `"#fff3f3f3"` |  | Color `titlebarInactive` as #RRGGBB or #AARRGGBB |
 | `colors.light.titleText` | color | `"#ff1a1a1a"` |  | Color `titleText` as #RRGGBB or #AARRGGBB |
@@ -144,6 +145,7 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `colors.dark.subtleFillHover` | color | `"#0fffffff"` |  | Color `subtleFillHover` as #RRGGBB or #AARRGGBB |
 | `colors.dark.subtleFillPressed` | color | `"#0bffffff"` |  | Color `subtleFillPressed` as #RRGGBB or #AARRGGBB |
 | `colors.dark.taskIndicator` | color | `"#ff9d9d9d"` |  | Color `taskIndicator` as #RRGGBB or #AARRGGBB |
+| `colors.dark.taskAttention` | color | `"#57ff8c00"` |  | Color `taskAttention` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titlebar` | color | `"#ff202020"` |  | Color `titlebar` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titlebarInactive` | color | `"#ff202020"` |  | Color `titlebarInactive` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titleText` | color | `"#ffffffff"` |  | Color `titleText` as #RRGGBB or #AARRGGBB |
@@ -256,6 +258,10 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `metrics.panel.taskFocusIndicatorInset` | number | `14` | 0 to 48 | Metric `taskFocusIndicatorInset` |
 | `metrics.panel.taskMargin` | number | `3` | 0 to 12 | Metric `taskMargin` |
 | `metrics.panel.taskRadius` | number | `4` | 0 to 16 | Metric `taskRadius` |
+| `metrics.panel.taskPadding` | number | `6` | 0 to 24 | Metric `taskPadding` |
+| `metrics.blur.contrast` | number | `0.2` | 0 to 2 | Metric `contrast` |
+| `metrics.blur.intensity` | number | `1.4` | 0 to 4 | Metric `intensity` |
+| `metrics.blur.saturation` | number | `1.8` | 0 to 4 | Metric `saturation` |
 | `metrics.flyout.radius` | number | `8` | 0 to 32 | Metric `radius` |
 | `metrics.flyout.stroke` | number | `1` | 0 to 4 | Metric `stroke` |
 | `metrics.flyout.padding` | number | `12` | 0 to 48 | Metric `padding` |
@@ -274,7 +280,7 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `metrics.listItem.radius` | number | `4` | 0 to 16 | Metric `radius` |
 | `metrics.listItem.padding` | number | `6` | 0 to 24 | Metric `padding` |
 | `metrics.listItem.selectionPillWidth` | number | `3` | 0 to 8 | Metric `selectionPillWidth` |
-| `metrics.listItem.selectionPillHeight` | number | `16` | 0 to 48 | Metric `selectionPillHeight` |
+| `metrics.listItem.selectionPillInset` | number | `10` | 0 to 48 | Metric `selectionPillInset` |
 | `metrics.titlebar.height` | number | `32` | 16 to 96 | Metric `height` |
 | `metrics.titlebar.buttonWidth` | number | `46` | 16 to 96 | Metric `buttonWidth` |
 | `metrics.titlebar.glyphSize` | number | `10` | 6 to 32 | Metric `glyphSize` |

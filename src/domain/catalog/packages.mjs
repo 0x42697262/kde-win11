@@ -16,7 +16,10 @@ export const LOOK_AND_FEEL_IDS = Object.freeze({
     [Variant.Dark]: "com.github.0x42697262.kdewin11.dark",
 });
 
-export const DESKTOP_THEME_ID = "kde-win11";
+export const DESKTOP_THEME_IDS = Object.freeze({
+    [Variant.Light]: "kde-win11-light",
+    [Variant.Dark]: "kde-win11-dark",
+});
 
 export const COLOR_SCHEME_IDS = Object.freeze({
     [Variant.Light]: "KdeWin11Light",

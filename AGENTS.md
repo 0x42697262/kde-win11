@@ -60,6 +60,12 @@ Generated files are never edited by hand: everything under `packages/` and
 | Fact | Verified in |
 |---|---|
 | The Fluent UI System Icons fonts are TrueType (`glyf`) with 500 units per em, ascender 500 and descender 0, and a format 12 `cmap` | `tests/domain/truetype.test.mjs` |
+| Plasma's `FrameSvg` takes each of the nine elements' bounding box as its size, finds them as `<prefix>-<name>`, reads content margins from `hint-<side>-margin` and blur masks from `mask-<prefix>-*` | KDE Plasma style documentation, Breeze `widgets/panel-background` |
+| Dialog shadows come from `shadow-*` elements; `shadow-hint-<side>-margin` sets how far the shadow reaches outside the window, and the tile overlaps the window by the rest | libplasma `dialogshadows.cpp` |
+| The panel looks up `south-`, `north-`, `east-`, `west-` prefixes before the unprefixed frame; tasks use `normal`, `focus`, `hover`, `attention`, `minimized`; list highlights use `hover`, `selected`, `selected+hover` | plasma-workspace task manager and `PlasmaExtras.Highlight` |
+| Plasma uses `translucent/` SVGs when blur is available and `opaque/` ones without compositing | KDE Plasma style documentation |
+| QtSvg renders linear and radial gradients with `gradientTransform` but not filters, so shadows are gradients | Qt SVG Tiny 1.2 support |
+| **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
 Add a row whenever you rely on a third-party behavior.
 
@@ -71,3 +77,7 @@ Every PR adds one line per behavior change: what to do, what to see.
 |---|---|---|
 | Foundation | `npm run verify` | All green |
 | Settings | `npm run build -- --settings s.json --out /tmp/k` with `{"schemaVersion":1,"values":{"taskbar":{"alignment":"diagonal"}}}` | One `settings.invalid` line for `taskbar.alignment`; build finishes |
+| Plasma style | Copy `packages/plasma/desktoptheme/*` to `~/.local/share/plasma/desktoptheme/`, pick "Windows 11 Light" in System Settings → Colors & Themes → Plasma Style | Flat taskbar with a hairline top border; popups rounded 8 px with a soft shadow; with blur, flyouts are translucent |
+| Task pills | Open two apps, focus one | Running apps show a short grey pill; the focused one a wider accent pill on a subtle background |
+| Color scheme | Copy `packages/color-schemes/*` to `~/.local/share/color-schemes/`, apply "Windows 11 Dark" | Window #202020, views #1c1c1c, selection in the accent; changing the accent in System Settings recolors selection |
+| Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |
