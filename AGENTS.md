@@ -54,6 +54,7 @@ tools/ entry points  ->  src/adapters (files, fonts)  ->  src/domain (pure .mjs)
 | `npm run render` | Render wallpaper JPEGs, global theme previews and `docs/screenshots/` with Playwright |
 | `tools/ci/kde-check.sh` | xmllint every SVG, install the packages with `kpackagetool6` and load the splash and login QML (needs plasma-workspace, qt6-declarative, pyside6, libxml2) |
 | `tools/ci/qml-preview.py splash\|login <qml> <prefix>` | Load one QML file, screenshot it and fail on any QML warning |
+| `tools/demo.sh` | Record `docs/media/demo.mp4` and `demo.gif`: login and splash QML frames through `qml-preview.py --record`, desktop frames through `tools/demo.mjs`, joined with ffmpeg crossfades |
 | `tools/install.sh` | Copy, apply or remove the theme; rebuilds with your settings when Node is available |
 
 Generated files are never edited by hand: everything under `packages/` and

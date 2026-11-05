@@ -8,11 +8,13 @@ Plasma only reads the generated files under `packages/` (SVG, INI, QML and
 Xcursor). Node is used to build and check them, the same way
 [qs-win-11](https://github.com/0x42697262/qs-win-11) builds its shell.
 
-![kde-win11 light: centered taskbar, Start, Explorer-style window with Fluent folders](docs/screenshots/desktop-light.jpg)
+![kde-win11 demo: login screen, wrong then right password, splash, Start, hovering apps, selecting a folder, the taskbar, then dark mode](docs/media/demo.gif)
+
+[Watch the sharper MP4](docs/media/demo.mp4) · the login and splash parts are the shipped QML recorded frame by frame through Qt 6 (Mesa OpenGL); the desktop part is the mockup driven in Chromium with the theme's own cursors.
 
 | | |
 |---|---|
-| ![Dark](docs/screenshots/desktop-dark.jpg) | ![Light](docs/screenshots/desktop-light.jpg) |
+| ![Light](docs/screenshots/desktop-light.jpg) | ![Dark](docs/screenshots/desktop-dark.jpg) |
 | ![Login, lock state](docs/screenshots/login-lock.png) | ![Login, sign in](docs/screenshots/login-signin.png) |
 | ![Splash, light](docs/screenshots/splash-light.png) | ![Splash, dark](docs/screenshots/splash-dark.png) |
 
@@ -105,7 +107,9 @@ npm run verify
 
 `verify` runs the type check, the banned-pattern check, the domain tests and
 the generated-files check. `npm run gen` regenerates `packages/`,
-`npm run render` re-renders the JPEG and PNG images with Playwright. CI also
+`npm run render` re-renders the JPEG and PNG images with Playwright and
+`tools/demo.sh` records the README demo (needs PySide6, a display with OpenGL,
+Playwright and ffmpeg). CI also
 installs every package with `kpackagetool6` on Arch Linux, xmllints every SVG
 and loads the splash and login QML with zero warnings allowed. Read
 [`AGENTS.md`](AGENTS.md) before changing code.
