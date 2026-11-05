@@ -17,11 +17,14 @@ Xcursor). Node is used to build and check them, the same way
 | ![Light](docs/screenshots/desktop-light.jpg) | ![Dark](docs/screenshots/desktop-dark.jpg) |
 | ![Login, lock state](docs/screenshots/login-lock.png) | ![Login, sign in](docs/screenshots/login-signin.png) |
 | ![Splash, light](docs/screenshots/splash-light.png) | ![Splash, dark](docs/screenshots/splash-dark.png) |
+| ![Kvantum menus and controls, light](docs/screenshots/kvantum-light.png) | ![Kvantum menus and controls, dark](docs/screenshots/kvantum-dark.png) |
 
 The desktop images are mockups rendered by `npm run render` from the generated
 colors, icons, caption buttons and wallpaper; they are not captures of a live
 Plasma session. The login and splash images are the shipped QML rendered by
-Qt 6 through `tools/ci/qml-preview.py`.
+Qt 6 through `tools/ci/qml-preview.py`. The menu and control images are the
+generated Kvantum themes in Kvantum's own `kvantumpreview` (no compositor, so
+no menu shadow).
 
 ## What you get
 
@@ -36,10 +39,13 @@ Qt 6 through `tools/ci/qml-preview.py`.
 | Wallpaper | Original ribbons, with a dark variant |
 | Splash | Start glyph above a spinning accent ring |
 | Login screen | SDDM theme with the lock clock, blurred wallpaper, avatar, password field, user list, session picker and power buttons |
+| Menus and controls (optional) | Kvantum style: rounded menus with shadow and inset hover, Fluent check marks and chevrons, Windows 11 buttons, fields, check boxes, sliders, scrollbars and tabs; all KDE menu entries kept |
 | Konsole | Windows Terminal Campbell and One Half Light palettes |
 
-The lock screen and the application widget style stay Breeze, recolored by
-the color scheme; see [ADR 0008](docs/adr/0008-keep-breeze-lock-screen-and-widgets.md).
+The lock screen stays Breeze, recolored by the color scheme; see
+[ADR 0008](docs/adr/0008-keep-breeze-lock-screen-and-widgets.md). Apps keep
+Breeze unless you add `--kvantum`; see
+[ADR 0009](docs/adr/0009-optional-kvantum-style.md).
 No Microsoft artwork, fonts or logos are included; see
 [ADR 0002](docs/adr/0002-open-assets.md).
 
@@ -47,7 +53,8 @@ No Microsoft artwork, fonts or logos are included; see
 
 - KDE Plasma 6 (Wayland or X11)
 - Optional: the Inter font for the splash and login screen, SDDM with Qt 6 for
-  the login screen, Node 22 to rebuild with your own settings
+  the login screen, Kvantum for Qt 6 for Windows 11 menus and controls, Node 22
+  to rebuild with your own settings
 
 ## Install
 
@@ -62,7 +69,9 @@ cd kde-win11 && tools/install.sh
 `install.sh` copies the packages into `$XDG_DATA_HOME` and applies the light
 global theme with its taskbar layout. Use `--dark` for the dark theme,
 `--keep-layout` to keep your own panels, `--no-apply` to only copy files and
-`--sddm` to also install and select the login screen (uses `sudo`). Remove
+`--sddm` to also install and select the login screen (uses `sudo`) and
+`--kvantum` for Windows 11 menus and controls in apps (needs Kvantum for Qt 6,
+packaged as `kvantum` on most distributions). Remove
 everything again with:
 
 ```bash

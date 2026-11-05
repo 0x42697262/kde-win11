@@ -55,7 +55,7 @@ tools/ entry points  ->  src/adapters (files, fonts)  ->  src/domain (pure .mjs)
 | `tools/ci/kde-check.sh` | xmllint every SVG, install the packages with `kpackagetool6` and load the splash and login QML (needs plasma-workspace, qt6-declarative, pyside6, libxml2) |
 | `tools/ci/qml-preview.py splash\|login <qml> <prefix>` | Load one QML file, screenshot it and fail on any QML warning |
 | `tools/demo.sh` | Record `docs/media/demo.mp4` and `demo.gif`: login and splash QML frames through `qml-preview.py --record`, desktop frames through `tools/demo.mjs`, joined with ffmpeg crossfades |
-| `tools/install.sh` | Copy, apply or remove the theme; rebuilds with your settings when Node is available |
+| `tools/install.sh` | Copy, apply or remove the theme; rebuilds with your settings when Node is available; `--kvantum` adds the Kvantum widget style |
 
 Generated files are never edited by hand: everything under `packages/` and
 `docs/configuration.md`. Rendered images (`*.jpg`, `preview.png`,
@@ -86,6 +86,8 @@ Generated files are never edited by hand: everything under `packages/` and
 | Qt Quick's software backend does not draw `MultiEffect`, so the login wallpaper stays visible under the blur and avatars fall back to a glyph | Local run with `QSG_INFO=1` under `offscreen` |
 | `tools/ci/qml-preview.py` loads the splash and login QML with mocked SDDM objects under Qt 6.12; both render with zero warnings, also on Mesa llvmpipe OpenGL | Local run, PySide6 6.12 |
 | `kpackagetool6` installs both global themes, both Plasma styles and the wallpaper on Arch Linux | CI `kde` job |
+| Kvantum themes are `<Name>/<Name>.kvconfig` plus `<Name>.svg` under `$XDG_CONFIG_HOME/Kvantum/`, selected by `kvantum.kvconfig` `[General] theme=`; elements are `<element>-<state>` interiors and `<element>-<state>-<side>` frames scaled to `frame.*` px, states `normal`, `focused`, `pressed`, `toggled`, `disabled`; `menu-shadow-*` is drawn in `menu_shadow_depth` around composited menus | Reference themes in qt5-style-kvantum-themes; the generated themes rendered in `kvantumpreview` (Kvantum 1.0.10-1build3) under Xvfb |
+| Kvantum draws menu shadows only with a compositor, so Xvfb screenshots show none | `kvantumpreview` under Xvfb |
 | **Unverified in a live session:** `panel.lengthMode`, `panel.floating` and `userDataPath()` returning `$HOME` in the layout script; both property writes are wrapped in `try` | Plasma desktop scripting API docs |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
@@ -114,4 +116,6 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Login screen | `tools/install.sh --sddm`, then `sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/kde-win11` | Lock clock over the wallpaper; a key shows the blurred sign-in with avatar and password; a wrong password shows the error; Escape returns |
 | Installer | `tools/install.sh --dark`, then `tools/install.sh --uninstall` | Dark global theme applied with the Windows 11 taskbar; uninstall removes every installed folder |
 | Installer | Put an invalid value in `settings.json`, run `tools/install.sh --no-apply` | One `settings.invalid` line; the rest of the settings apply |
+| Kvantum | `tools/install.sh --kvantum`, restart Dolphin, right-click a file | Rounded 8 px menu with a shadow, inset rounded hover, Fluent check marks and submenu chevrons; buttons, fields, checks and sliders in the Windows 11 style; every KDE menu entry still there |
+| Kvantum | `tools/install.sh --uninstall` after `--kvantum` | Kvantum themes removed; widget style back to Breeze |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |
