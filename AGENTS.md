@@ -65,6 +65,8 @@ Generated files are never edited by hand: everything under `packages/` and
 | The panel looks up `south-`, `north-`, `east-`, `west-` prefixes before the unprefixed frame; tasks use `normal`, `focus`, `hover`, `attention`, `minimized`; list highlights use `hover`, `selected`, `selected+hover` | plasma-workspace task manager and `PlasmaExtras.Highlight` |
 | Plasma uses `translucent/` SVGs when blur is available and `opaque/` ones without compositing | KDE Plasma style documentation |
 | QtSvg renders linear and radial gradients with `gradientTransform` but not filters, so shadows are gradients | Qt SVG Tiny 1.2 support |
+| Aurorae themes live in `$XDG_DATA_HOME/aurorae/themes/<name>/` with `metadata.desktop`, `<name>rc`, `decoration.svg` (`decoration-*`, `decoration-inactive-*`, `decoration-maximized-*`, `decoration-maximized-inactive-*`) and one SVG per button with `<state>-center` elements; KWin selects it as `__aurorae__svg__<name>` | KWin `plugins/kdecorations/aurorae`, existing Aurorae themes |
+| Aurorae draws the decoration nine-slice across the padding, so shadows are painted inside `Padding*` and the client sits inside `Border*` | KWin Aurorae theme format |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
 Add a row whenever you rely on a third-party behavior.
@@ -80,4 +82,6 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Plasma style | Copy `packages/plasma/desktoptheme/*` to `~/.local/share/plasma/desktoptheme/`, pick "Windows 11 Light" in System Settings → Colors & Themes → Plasma Style | Flat taskbar with a hairline top border; popups rounded 8 px with a soft shadow; with blur, flyouts are translucent |
 | Task pills | Open two apps, focus one | Running apps show a short grey pill; the focused one a wider accent pill on a subtle background |
 | Color scheme | Copy `packages/color-schemes/*` to `~/.local/share/color-schemes/`, apply "Windows 11 Dark" | Window #202020, views #1c1c1c, selection in the accent; changing the accent in System Settings recolors selection |
+| Window decoration | Copy `packages/aurorae/themes/*` to `~/.local/share/aurorae/themes/`, pick "Windows 11 Light" under Window Decorations | 32 px title bar in the window color, 8 px rounded top corners, hairline border, soft shadow; 46 px wide caption buttons with a red close hover that follows the corner |
+| Window decoration | `{"values":{"titlebar":{"alignment":"center"}}}`, rebuild | Titles centered |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |
