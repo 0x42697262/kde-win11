@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="62" height="328" viewBox="0 0 62 328">
+<g id="active-center"><rect x="8" y="8" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 21H34V29H26ZM27 22H33V28H27ZM28 19H36V27H35V20H28Z" fill-rule="evenodd" fill="#1a1a1a"/></g>
+<g id="inactive-center"><rect x="8" y="48" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 61H34V69H26ZM27 62H33V68H27ZM28 59H36V67H35V60H28Z" fill-rule="evenodd" fill="#8d8d8d"/></g>
+<g id="hover-center"><rect x="8" y="88" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 88H54V120H8V88Z" fill="#000000" fill-opacity="0.0392"/><path d="M26 101H34V109H26ZM27 102H33V108H27ZM28 99H36V107H35V100H28Z" fill-rule="evenodd" fill="#1a1a1a"/></g>
+<g id="hover-inactive-center"><rect x="8" y="128" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 128H54V160H8V128Z" fill="#000000" fill-opacity="0.0392"/><path d="M26 141H34V149H26ZM27 142H33V148H27ZM28 139H36V147H35V140H28Z" fill-rule="evenodd" fill="#1a1a1a"/></g>
+<g id="pressed-center"><rect x="8" y="168" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 168H54V200H8V168Z" fill="#000000" fill-opacity="0.0235"/><path d="M26 181H34V189H26ZM27 182H33V188H27ZM28 179H36V187H35V180H28Z" fill-rule="evenodd" fill="#1a1a1a"/></g>
+<g id="pressed-inactive-center"><rect x="8" y="208" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 208H54V240H8V208Z" fill="#000000" fill-opacity="0.0235"/><path d="M26 221H34V229H26ZM27 222H33V228H27ZM28 219H36V227H35V220H28Z" fill-rule="evenodd" fill="#8d8d8d"/></g>
+<g id="deactivated-center"><rect x="8" y="248" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 261H34V269H26ZM27 262H33V268H27ZM28 259H36V267H35V260H28Z" fill-rule="evenodd" fill="#a0a0a0"/></g>
+<g id="deactivated-inactive-center"><rect x="8" y="288" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 301H34V309H26ZM27 302H33V308H27ZM28 299H36V307H35V300H28Z" fill-rule="evenodd" fill="#a0a0a0"/></g>
+</svg>

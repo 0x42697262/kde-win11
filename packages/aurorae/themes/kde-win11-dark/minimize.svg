@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="62" height="328" viewBox="0 0 62 328">
+<g id="active-center"><rect x="8" y="8" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 23.5H36V24.5H26Z" fill="#ffffff"/></g>
+<g id="inactive-center"><rect x="8" y="48" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 63.5H36V64.5H26Z" fill="#9a9a9a"/></g>
+<g id="hover-center"><rect x="8" y="88" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 88H54V120H8V88Z" fill="#ffffff" fill-opacity="0.0588"/><path d="M26 103.5H36V104.5H26Z" fill="#ffffff"/></g>
+<g id="hover-inactive-center"><rect x="8" y="128" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 128H54V160H8V128Z" fill="#ffffff" fill-opacity="0.0588"/><path d="M26 143.5H36V144.5H26Z" fill="#ffffff"/></g>
+<g id="pressed-center"><rect x="8" y="168" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 168H54V200H8V168Z" fill="#ffffff" fill-opacity="0.0431"/><path d="M26 183.5H36V184.5H26Z" fill="#ffffff"/></g>
+<g id="pressed-inactive-center"><rect x="8" y="208" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M8 208H54V240H8V208Z" fill="#ffffff" fill-opacity="0.0431"/><path d="M26 223.5H36V224.5H26Z" fill="#9a9a9a"/></g>
+<g id="deactivated-center"><rect x="8" y="248" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 263.5H36V264.5H26Z" fill="#717171"/></g>
+<g id="deactivated-inactive-center"><rect x="8" y="288" width="46" height="32" fill="#000000" opacity="0.001"/><path d="M26 303.5H36V304.5H26Z" fill="#717171"/></g>
+</svg>

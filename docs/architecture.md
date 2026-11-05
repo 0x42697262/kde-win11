@@ -38,4 +38,5 @@ directory. Node only builds and checks them.
 |---|---|---|
 | `plasma/desktoptheme/kde-win11-{light,dark}` | `$XDG_DATA_HOME/plasma/desktoptheme/` | `desktopTheme.mjs` |
 | `color-schemes/KdeWin11{Light,Dark}.colors` | `$XDG_DATA_HOME/color-schemes/` | `colorScheme.mjs` |
+| `aurorae/themes/kde-win11-{light,dark}` | `$XDG_DATA_HOME/aurorae/themes/` | `aurorae.mjs` |
 | `konsole/KdeWin11{Light,Dark}.colorscheme` | `$XDG_DATA_HOME/konsole/` | `konsole.mjs` |
