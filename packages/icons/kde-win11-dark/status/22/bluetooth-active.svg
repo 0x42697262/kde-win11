@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+<defs><style type="text/css" id="current-color-scheme">.ColorScheme-Text{color:#ffffff}.ColorScheme-Highlight{color:#73b5e7}.ColorScheme-NegativeText{color:#ff99a4}.ColorScheme-NeutralText{color:#fce100}.ColorScheme-PositiveText{color:#6ccb5f}</style></defs><path d="M10.32 3.04Q10.6 2.92 10.84 3.16L14.84 7.16Q15 7.28 15 7.5Q15 7.72 14.84 7.88L11.28 11L14.84 14.12Q15 14.28 15 14.5Q15 14.72 14.84 14.84L10.84 18.84Q10.6 19.08 10.3 18.96Q10 18.84 10 18.52L10 12.12L6.84 14.88Q6.68 15 6.48 15Q6.28 15 6.14 14.84Q6 14.68 6 14.48Q6 14.28 6.16 14.12L9.76 11L6.16 7.88Q6 7.72 6 7.52Q6 7.32 6.14 7.16Q6.28 7 6.48 7Q6.68 7 6.84 7.12L10 9.88L10 3.48Q10 3.16 10.32 3.04ZM11 12.12L11 17.28L13.76 14.52L11 12.12ZM11 9.88L13.76 7.48L11 4.72L11 9.88Z" class="ColorScheme-Text" fill="currentColor"/>
+</svg>

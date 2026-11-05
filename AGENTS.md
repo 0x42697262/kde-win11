@@ -67,6 +67,9 @@ Generated files are never edited by hand: everything under `packages/` and
 | QtSvg renders linear and radial gradients with `gradientTransform` but not filters, so shadows are gradients | Qt SVG Tiny 1.2 support |
 | Aurorae themes live in `$XDG_DATA_HOME/aurorae/themes/<name>/` with `metadata.desktop`, `<name>rc`, `decoration.svg` (`decoration-*`, `decoration-inactive-*`, `decoration-maximized-*`, `decoration-maximized-inactive-*`) and one SVG per button with `<state>-center` elements; KWin selects it as `__aurorae__svg__<name>` | KWin `plugins/kdecorations/aurorae`, existing Aurorae themes |
 | Aurorae draws the decoration nine-slice across the padding, so shadows are painted inside `Padding*` and the client sits inside `Border*` | KWin Aurorae theme format |
+| Icon themes are `index.theme` plus `Directories` with `Size`, `Context` and `Type=Fixed` or `Scalable` (`MinSize`, `MaxSize`); `Inherits` provides fallbacks | freedesktop Icon Theme Specification |
+| KDE recolors SVG icons that use `<style id="current-color-scheme">` and `class="ColorScheme-*"` with `fill="currentColor"`; GTK recolors only `-symbolic` names | KIconThemes `KIconEngine`, Breeze icons |
+| Fluent `wifi_1` is the full-strength glyph and `wifi_4` the weakest | Rendered glyph sheet |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
 Add a row whenever you rely on a third-party behavior.
@@ -84,4 +87,6 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Color scheme | Copy `packages/color-schemes/*` to `~/.local/share/color-schemes/`, apply "Windows 11 Dark" | Window #202020, views #1c1c1c, selection in the accent; changing the accent in System Settings recolors selection |
 | Window decoration | Copy `packages/aurorae/themes/*` to `~/.local/share/aurorae/themes/`, pick "Windows 11 Light" under Window Decorations | 32 px title bar in the window color, 8 px rounded top corners, hairline border, soft shadow; 46 px wide caption buttons with a red close hover that follows the corner |
 | Window decoration | `{"values":{"titlebar":{"alignment":"center"}}}`, rebuild | Titles centered |
+| Icons | Copy `packages/icons/*` to `~/.local/share/icons/`, pick "Windows 11" under Icons | Yellow folders with blue glyphs in Dolphin, Fluent toolbar icons that follow the color scheme, colored file type pages, gradient app tiles in the launcher |
+| Icons | Change the accent with `{"values":{"accent":{"color":"#e3008c"}}}`, rebuild | Start icon gradient turns pink |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |
