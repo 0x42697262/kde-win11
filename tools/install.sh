@@ -12,6 +12,7 @@ variant=""
 apply=1
 layout=1
 sddm=0
+kvantum=0
 uninstall=0
 
 usage() {
@@ -25,6 +26,8 @@ Copies the Windows 11 theme into $XDG_DATA_HOME and applies it.
   --keep-layout    Apply colors, icons and decorations but keep your panels
   --no-apply       Only copy the files
   --sddm           Also install and select the login screen (uses sudo)
+  --kvantum        Also install the Kvantum widget style for Windows 11 menus
+                   and controls in apps (needs Kvantum for Qt 6)
   --uninstall      Remove everything this script installed
   -h, --help       Show this help
 
@@ -40,6 +43,7 @@ while [ "$#" -gt 0 ]; do
         --keep-layout) layout=0 ;;
         --no-apply) apply=0 ;;
         --sddm) sddm=1 ;;
+        --kvantum) kvantum=1 ;;
         --uninstall) uninstall=1 ;;
         -h | --help) usage; exit 0 ;;
         *) echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
@@ -70,6 +74,12 @@ if [ "$uninstall" -eq 1 ]; then
         rm -rf "${data_home:?}/$path"
         echo "removed $data_home/$path"
     done
+    for path in $KDE_WIN11_KVANTUM_PATHS; do
+        rm -rf "${config_home:?}/$path"
+    done
+    if [ "$(kreadconfig6 --file kdeglobals --group KDE --key widgetStyle 2>/dev/null || true)" = "$KDE_WIN11_KVANTUM_STYLE" ]; then
+        run_if_present kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle "$KDE_WIN11_DEFAULT_WIDGET_STYLE"
+    fi
     if [ -d "$sddm_themes/$KDE_WIN11_SDDM_THEME" ] || [ -f "$sddm_config" ]; then
         sudo rm -rf "${sddm_themes:?}/$KDE_WIN11_SDDM_THEME" "$sddm_config"
         echo "removed the login screen"
@@ -85,6 +95,16 @@ for path in $KDE_WIN11_PATHS; do
     cp -a "$source_dir/$path" "$target"
     echo "installed $target"
 done
+
+if [ "$kvantum" -eq 1 ]; then
+    for path in $KDE_WIN11_KVANTUM_PATHS; do
+        target="$config_home/$path"
+        mkdir -p "$(dirname "$target")"
+        rm -rf "$target"
+        cp -a "$source_dir/$path" "$target"
+        echo "installed $target"
+    done
+fi
 
 if [ "$sddm" -eq 1 ]; then
     sudo install -d "$sddm_themes" "$(dirname "$sddm_config")"
@@ -119,5 +139,16 @@ run_if_present kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key li
 run_if_present kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "${!decoration_var}"
 run_if_present kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft "$KDE_WIN11_BUTTONS_LEFT"
 run_if_present kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight "$KDE_WIN11_BUTTONS_RIGHT"
+if [ "$kvantum" -eq 1 ]; then
+    kvantum_theme_var="KDE_WIN11_KVANTUM_THEME_$suffix"
+    kvantum_config="$config_home/$KDE_WIN11_KVANTUM_ROOT/kvantum.kvconfig"
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file "$kvantum_config" --group General --key theme "${!kvantum_theme_var}"
+    else
+        printf '[General]\ntheme=%s\n' "${!kvantum_theme_var}" >"$kvantum_config"
+    fi
+    run_if_present kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle "$KDE_WIN11_KVANTUM_STYLE"
+    echo "Kvantum style selected; restart open apps to see it."
+fi
 run_if_present dbus-send --session --type=signal /KWin org.kde.KWin.reloadConfig
 echo "kde-win11 $variant applied."
