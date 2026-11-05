@@ -24,6 +24,35 @@ const settings = {
         "clock": "org.kde.plasma.digitalclock",
         "showDesktop": "org.kde.plasma.showdesktop",
         "wallpaper": "org.kde.image"
+    },
+    "desktopMenu": {
+        "file": "plasma-org.kde.plasma.desktop-appletsrc",
+        "groups": [
+            "ActionPlugins",
+            "0"
+        ],
+        "trigger": "RightButton;NoModifier",
+        "plugin": "org.kde.contextmenu",
+        "actions": {
+            "_display_settings": true,
+            "configure": true,
+            "_open_terminal": true,
+            "_wallpaper": true,
+            "add widgets": true,
+            "edit mode": true,
+            "_add panel": true,
+            "_context": true,
+            "manage activities": false,
+            "configure shortcuts": false,
+            "remove": false,
+            "run associated application": false,
+            "_run_command": false,
+            "_lock_screen": false,
+            "_logout": false,
+            "_sep1": true,
+            "_sep2": true,
+            "_sep3": true
+        }
     }
 };
 
@@ -70,6 +99,18 @@ if (settings.showDesktopButton) {
 }
 
 const wallpaper = "file://" + userDataPath() + "/.local/share/" + settings.wallpaperPackage + "/";
+try {
+    let menuGroup = new ConfigFile(settings.desktopMenu.file, settings.desktopMenu.groups[0]);
+    settings.desktopMenu.groups.slice(1).forEach(function (group) {
+        menuGroup = new ConfigFile(menuGroup, group);
+    });
+    menuGroup.writeEntry(settings.desktopMenu.trigger, settings.desktopMenu.plugin);
+    const menuActions = new ConfigFile(menuGroup, settings.desktopMenu.trigger);
+    Object.keys(settings.desktopMenu.actions).forEach(function (action) {
+        menuActions.writeEntry(action, settings.desktopMenu.actions[action]);
+    });
+} catch (error) { print(error); }
+
 desktops().forEach(function (desktop) {
     desktop.wallpaperPlugin = settings.widgets.wallpaper;
     desktop.currentConfigGroup = ["Wallpaper", settings.widgets.wallpaper, "General"];
