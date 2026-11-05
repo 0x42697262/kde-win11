@@ -1,0 +1,13 @@
+{
+    "KPackageStructure": "Wallpaper/Images",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "0x42697262"
+            }
+        ],
+        "Id": "kde-win11",
+        "License": "GPL-3.0-only",
+        "Name": "Windows 11 Ribbons"
+    }
+}
