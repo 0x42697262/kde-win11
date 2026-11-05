@@ -1,9 +1,10 @@
 import { IconStyle, Variant } from "../catalog/enums.mjs";
-import { FLUENT_SIZES, IconContext, MAXIMUM_CENTERING_GAP, SYMBOLIC_ICONS, SYMBOLIC_SCALABLE_MAXIMUM, SYMBOLIC_SIZES, SymbolTone } from "../catalog/icons.mjs";
+import { FLUENT_SIZES, IconContext, MAXIMUM_CENTERING_GAP, SCALABLE_MAXIMUM, SCALABLE_MINIMUM, SCALABLE_SIZE, SYMBOLIC_ICONS, SYMBOLIC_SCALABLE_MAXIMUM, SYMBOLIC_SIZES, SymbolTone } from "../catalog/icons.mjs";
 import { FALLBACK_ICON_THEMES, ICON_THEME_IDS } from "../catalog/packages.mjs";
 import { PACKAGE_TEXT } from "../catalog/packageText.mjs";
 import { buildPalette, colorOf } from "../theme/palette.mjs";
 import { colorSchemeStyle, element, svgDocument } from "../svg/document.mjs";
+import { renderArtwork } from "./iconArtwork.mjs";
 import { renderIni } from "./ini.mjs";
 import { linkFile, textFile } from "./files.mjs";
 
@@ -25,6 +26,7 @@ const CONTEXT_LABELS = Object.freeze({
     [IconContext.MimeTypes]: "MimeTypes",
 });
 
+const ARTWORK_CONTEXTS = Object.freeze([IconContext.Places, IconContext.Devices, IconContext.MimeTypes, IconContext.Apps]);
 const DEFAULT_SIZES = Object.freeze({ desktop: 48, toolbar: 22, mainToolbar: 22, small: 16, panel: 48, dialog: 32 });
 
 /**
@@ -123,6 +125,7 @@ function iconDirectories() {
                 ? { path: `${context}/${size}`, size, context, scalable: true, minimum: size, maximum: SYMBOLIC_SCALABLE_MAXIMUM }
                 : { path: `${context}/${size}`, size, context, scalable: false };
         })),
+        ...ARTWORK_CONTEXTS.map((context) => ({ path: `${context}/scalable`, size: SCALABLE_SIZE, context, scalable: true, minimum: SCALABLE_MINIMUM, maximum: SCALABLE_MAXIMUM })),
     ];
 }
 
@@ -143,6 +146,16 @@ export function renderIconTheme(variant, values, glyphs) {
             const body = element("path", { d: symbolicPath(glyphs, icon, size), class: icon.tone ?? SymbolTone.Text, fill: "currentColor" });
             files.push(...namedFiles(`${icon.context}/${size}`, icon.names, svgDocument(size, size, body, style)));
         });
+    });
+    if (variant === Variant.Dark) {
+        ARTWORK_CONTEXTS.forEach((context) => files.push(linkFile(`${context}/scalable`, `../../${ICON_THEME_IDS.light}/${context}/scalable`)));
+        return files;
+    }
+    const artwork = renderArtwork(values, glyphs);
+    /** @type {Record<string, import("./iconArtwork.mjs").Artwork[]>} */
+    const byContext = { [IconContext.Places]: artwork.places, [IconContext.Devices]: artwork.devices, [IconContext.MimeTypes]: artwork.mimetypes, [IconContext.Apps]: artwork.apps };
+    ARTWORK_CONTEXTS.forEach((context) => {
+        (byContext[context] ?? []).forEach((piece) => files.push(...namedFiles(`${context}/scalable`, piece.names, piece.svg)));
     });
     return files;
 }

@@ -57,7 +57,7 @@ test("index lists exactly the directories that hold icons", () => {
     const used = new Set(light.filter((file) => file.path.endsWith(".svg")).map((file) => file.path.split("/").slice(0, -1).join("/")));
     assert.deepEqual([...used].sort(), [...listed].sort());
     assert.match(index, /Inherits=breeze,hicolor/);
-    assert.match(index, /\[actions\/24\]\nSize=24\nMinSize=24\nMaxSize=256\nContext=Actions\nType=Scalable/);
+    assert.match(index, /\[places\/scalable\]\nSize=64\nMinSize=16\nMaxSize=512\nContext=Places\nType=Scalable/);
     assert.match(String(byPath(dark).get("index.theme")?.content), /Inherits=kde-win11,breeze-dark,hicolor/);
 });
 
@@ -77,4 +77,15 @@ test("wifi strength follows Fluent numbering where 1 is full", () => {
     const excellent = files.get("status/24/network-wireless-signal-excellent.svg");
     const full = GLYPHS.path("wifi_1_24", "regular", { x: 0, y: 0, size: 24 });
     assert.ok(String(excellent?.content).includes(full));
+});
+
+test("colorful artwork ships in the light theme and is linked from the dark one", () => {
+    const files = byPath(light);
+    ["places/scalable/folder.svg", "places/scalable/user-trash.svg", "devices/scalable/drive-harddisk.svg", "mimetypes/scalable/application-pdf.svg", "apps/scalable/utilities-terminal.svg", "apps/scalable/start-here.svg"].forEach((path) => {
+        assert.ok(files.get(path)?.content, path);
+    });
+    assert.equal(files.get("apps/scalable/org.kde.dolphin.svg")?.linkTarget, "system-file-manager.svg");
+    assert.equal(byPath(dark).get("places/scalable")?.linkTarget, "../../kde-win11/places/scalable");
+    const custom = renderIconTheme("light", Object.assign({}, DEFAULTS, { accent: { color: "#ff0000" } }), GLYPHS);
+    assert.match(String(byPath(custom).get("apps/scalable/start-here.svg")?.content), /stop-color="#ff0000"/);
 });
