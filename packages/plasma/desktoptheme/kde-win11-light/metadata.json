@@ -1,0 +1,28 @@
+{
+    "AdaptiveTransparency": {
+        "enabled": true
+    },
+    "BlurBehindEffect": {
+        "enabled": true
+    },
+    "ContrastEffect": {
+        "contrast": 0.2,
+        "enabled": true,
+        "intensity": 1.4,
+        "saturation": 1.8
+    },
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "0x42697262"
+            }
+        ],
+        "Description": "Windows 11 style Plasma style: flat taskbar, rounded acrylic flyouts, pill task indicators",
+        "Id": "kde-win11-light",
+        "License": "GPL-3.0-only",
+        "Name": "Windows 11 Light",
+        "Version": "1.0.0",
+        "Website": "https://github.com/0x42697262/kde-win11"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}

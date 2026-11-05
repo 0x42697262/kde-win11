@@ -1,6 +1,6 @@
 import { SettingType, defineSetting } from "./definitions.mjs";
 import { toQtColor } from "../theme/color.mjs";
-import { ACCENT_SHADES, CURSOR, CURSOR_COLORS, DARK_BASE, FLYOUT, ICON_COLORS, LIGHT_BASE, LIST_ITEM, LOGIN, PANEL, SPLASH, TERMINAL_COLORS, TITLEBAR, TOOLTIP, WALLPAPER_COLORS, WIDGET } from "../catalog/tokens.mjs";
+import { ACCENT_SHADES, BLUR, CURSOR, CURSOR_COLORS, DARK_BASE, FLYOUT, ICON_COLORS, LIGHT_BASE, LIST_ITEM, LOGIN, PANEL, SPLASH, TERMINAL_COLORS, TITLEBAR, TOOLTIP, WALLPAPER_COLORS, WIDGET } from "../catalog/tokens.mjs";
 import { TEXT } from "../catalog/strings.mjs";
 
 /** @typedef {import("./definitions.mjs").SettingDefinition} SettingDefinition */
@@ -72,6 +72,7 @@ export const VALUE_DEFINITIONS = Object.freeze([
     ...colorDefinitions("colors.wallpaperDark", "Colors (wallpaper)", WALLPAPER_COLORS.dark),
     ...metricDefinitions("accentShades", "Accent", ACCENT_SHADES),
     ...metricDefinitions("metrics.panel", "Metrics", PANEL),
+    ...metricDefinitions("metrics.blur", "Metrics", BLUR),
     ...metricDefinitions("metrics.flyout", "Metrics", FLYOUT),
     ...metricDefinitions("metrics.widget", "Metrics", WIDGET),
     ...metricDefinitions("metrics.tooltip", "Metrics", TOOLTIP),
