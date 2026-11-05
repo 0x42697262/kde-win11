@@ -1,0 +1,77 @@
+const settings = {
+    "height": 48,
+    "floating": false,
+    "launchers": [
+        "preferred://filemanager",
+        "preferred://browser",
+        "applications:org.kde.konsole.desktop",
+        "applications:org.kde.discover.desktop",
+        "applications:systemsettings.desktop"
+    ],
+    "favoritesDisplay": 0,
+    "applicationsDisplay": 1,
+    "showDate": true,
+    "dateDisplayFormat": 2,
+    "showDesktopButton": true,
+    "startIcon": "start-here-kde-win11",
+    "kickoffShortcut": "Alt+F1",
+    "wallpaperPackage": "wallpapers/kde-win11",
+    "widgets": {
+        "kickoff": "org.kde.plasma.kickoff",
+        "tasks": "org.kde.plasma.icontasks",
+        "spacer": "org.kde.plasma.panelspacer",
+        "tray": "org.kde.plasma.systemtray",
+        "clock": "org.kde.plasma.digitalclock",
+        "showDesktop": "org.kde.plasma.showdesktop",
+        "wallpaper": "org.kde.image"
+    }
+};
+
+const panel = new Panel;
+panel.location = "bottom";
+panel.height = settings.height;
+panel.alignment = "center";
+panel.hiding = "none";
+try { panel.lengthMode = "fill"; } catch (error) { print(error); }
+try { panel.floating = settings.floating; } catch (error) { print(error); }
+
+function addSpacer() {
+    const spacer = panel.addWidget(settings.widgets.spacer);
+    spacer.currentConfigGroup = ["General"];
+    spacer.writeConfig("expanding", true);
+}
+
+addSpacer();
+const kickoff = panel.addWidget(settings.widgets.kickoff);
+kickoff.currentConfigGroup = ["General"];
+kickoff.writeConfig("icon", settings.startIcon);
+kickoff.writeConfig("favoritesDisplay", settings.favoritesDisplay);
+kickoff.writeConfig("applicationsDisplay", settings.applicationsDisplay);
+kickoff.writeConfig("showActionButtonCaptions", false);
+kickoff.currentConfigGroup = ["Shortcuts"];
+kickoff.writeConfig("global", settings.kickoffShortcut);
+
+const tasks = panel.addWidget(settings.widgets.tasks);
+tasks.currentConfigGroup = ["General"];
+tasks.writeConfig("launchers", settings.launchers);
+tasks.writeConfig("showOnlyCurrentDesktop", false);
+tasks.writeConfig("maxStripes", 1);
+tasks.writeConfig("indicateAudioStreams", true);
+
+addSpacer();
+panel.addWidget(settings.widgets.tray);
+const clock = panel.addWidget(settings.widgets.clock);
+clock.currentConfigGroup = ["Appearance"];
+clock.writeConfig("showDate", settings.showDate);
+clock.writeConfig("dateDisplayFormat", settings.dateDisplayFormat);
+clock.writeConfig("dateFormat", "shortDate");
+if (settings.showDesktopButton) {
+    panel.addWidget(settings.widgets.showDesktop);
+}
+
+const wallpaper = "file://" + userDataPath() + "/.local/share/" + settings.wallpaperPackage + "/";
+desktops().forEach(function (desktop) {
+    desktop.wallpaperPlugin = settings.widgets.wallpaper;
+    desktop.currentConfigGroup = ["Wallpaper", settings.widgets.wallpaper, "General"];
+    desktop.writeConfig("Image", wallpaper);
+});

@@ -163,7 +163,7 @@ function trashSvg(colors, full) {
  * @param {GlyphSource} glyphs
  * @returns {string}
  */
-function startHereSvg(values, glyphs) {
+export function startHereSvg(values, glyphs) {
     const accent = parseColor(values.accent.color).hex;
     const light = mixHex(accent, WHITE_HEX, START_HERE_LIGHTEN);
     return svgDocument(ARTWORK_GRID, ARTWORK_GRID, element("path", { d: glyphInBox(glyphs, START_HERE_GLYPH, IconStyle.Filled, START_HERE_BOX), fill: "url(#accent)" }), verticalGradient("accent", light, accent));

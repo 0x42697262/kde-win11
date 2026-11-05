@@ -29,7 +29,8 @@ directory. Node only builds and checks them.
 | `src/domain/kde` | One renderer per KDE package type (`desktopTheme`, `colorScheme`, `konsole`, …), plus `assemble.mjs` |
 | `src/domain/docs` | Generated documentation |
 | `src/adapters` | Node file system access |
-| `tools` | `generate`, `build`, `check-banned` entry points |
+| `src/qml` | Hand-written splash (and login) QML; values come from a generated `Tokens.qml` beside it |
+| `tools` | `generate`, `build`, `render`, `check-banned` entry points; `tools/ci` scripts |
 | `tests/domain` | `node --test` for every domain module |
 | `packages` | Generated output, laid out like `$XDG_DATA_HOME` |
 
@@ -37,6 +38,8 @@ directory. Node only builds and checks them.
 
 | Path under `packages/` | Installed to | Renderer |
 |---|---|---|
+| `plasma/look-and-feel/com.github.0x42697262.kdewin11.{light,dark}` | `$XDG_DATA_HOME/plasma/look-and-feel/` | `lookAndFeel.mjs`, `src/qml/splash` |
+| `wallpapers/kde-win11` | `$XDG_DATA_HOME/wallpapers/` | `wallpaper.mjs`, images from `npm run render` |
 | `plasma/desktoptheme/kde-win11-{light,dark}` | `$XDG_DATA_HOME/plasma/desktoptheme/` | `desktopTheme.mjs` |
 | `color-schemes/KdeWin11{Light,Dark}.colors` | `$XDG_DATA_HOME/color-schemes/` | `colorScheme.mjs` |
 | `aurorae/themes/kde-win11-{light,dark}` | `$XDG_DATA_HOME/aurorae/themes/` | `aurorae.mjs` |

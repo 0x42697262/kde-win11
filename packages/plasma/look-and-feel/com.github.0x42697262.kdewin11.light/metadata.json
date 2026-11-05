@@ -1,0 +1,18 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "0x42697262"
+            }
+        ],
+        "Description": "Windows 11 style global theme, light: centered taskbar, Fluent icons, rounded flyouts",
+        "Id": "com.github.0x42697262.kdewin11.light",
+        "License": "GPL-3.0-only",
+        "Name": "Windows 11 Light",
+        "Version": "1.0.0",
+        "Website": "https://github.com/0x42697262/kde-win11"
+    },
+    "X-Plasma-APIVersion": "2",
+    "X-Plasma-MainScript": "defaults"
+}

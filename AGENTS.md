@@ -51,9 +51,12 @@ tools/ entry points  ->  src/adapters (files, fonts)  ->  src/domain (pure .mjs)
 | `npm run verify` | Type check, banned patterns, domain tests, generated files |
 | `npm run gen` | Regenerate `packages/` and `docs/configuration.md` from the defaults |
 | `npm run build -- --settings <file> --out <dir>` | Build every package with your settings into a data directory |
+| `npm run render` | Render wallpaper JPEGs, global theme previews and `docs/screenshots/` with Playwright |
+| `tools/ci/kde-check.sh` | xmllint every SVG, install the packages with `kpackagetool6` and load each splash with Qt's `qml` runner (needs plasma-workspace, qt6-declarative, libxml2) |
 
 Generated files are never edited by hand: everything under `packages/` and
-`docs/configuration.md`.
+`docs/configuration.md`. Rendered images (`*.jpg`, `preview.png`,
+`screenshot.png`, `docs/screenshots/`) come from `npm run render`.
 
 ## Confirmed facts
 
@@ -72,6 +75,11 @@ Generated files are never edited by hand: everything under `packages/` and
 | Fluent `wifi_1` is the full-strength glyph and `wifi_4` the weakest | Rendered glyph sheet |
 | Xcursor files start with `Xcur`, a 16-byte header and a table of contents; image chunks (type `0xfffd0002`, subtype = nominal size) carry width, height, hotspot, delay and premultiplied little-endian ARGB | `man Xcursor`, libXcursor `file.c` |
 | Cursor themes live in `$XDG_DATA_HOME/icons/<name>/cursors/`; `index.theme` `Inherits` provides missing shapes; aliases are symlinks | libXcursor library lookup |
+| A global theme is a `Plasma/LookAndFeel` KPackage: `metadata.json`, `contents/defaults` with `[file][group]` keys, `contents/layouts/org.kde.plasma.desktop-layout.js`, `contents/splash/Splash.qml`, `contents/previews/` | plasma-workspace `lookandfeel` structure, Breeze global theme |
+| KSplash sets the root object's `stage` property as startup advances; Breeze starts its intro at stage 2 | plasma-workspace `ksplashqml`, Breeze splash |
+| The layout script runs in Plasma's scripting engine with `Panel`, `addWidget`, `currentConfigGroup`, `writeConfig`, `desktops()` and `userDataPath()`; it only runs when the user keeps "Use desktop layout from theme" checked | Plasma desktop scripting API |
+| Wallpaper image packages use `contents/images/<W>x<H>.<ext>` and `contents/images_dark/` for the dark variant | plasma-workspace image wallpaper |
+| **Unverified in a live session:** `panel.lengthMode`, `panel.floating` and `userDataPath()` returning `$HOME` in the layout script; both property writes are wrapped in `try` | Plasma desktop scripting API docs |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
 Add a row whenever you rely on a third-party behavior.
@@ -93,4 +101,7 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Icons | Change the accent with `{"values":{"accent":{"color":"#e3008c"}}}`, rebuild | Start icon gradient turns pink |
 | Cursors | Copy `packages/icons/kde-win11-cursors*` to `~/.local/share/icons/`, pick "Windows 11 Cursors" under Cursors | White arrow with a black outline and soft shadow; spinning accent ring while apps start; sizes 24 to 64 stay sharp |
 | Cursors | `{"values":{"cursors":{"sizes":[32,48]}}}`, rebuild | Only 32 and 48 px images in each cursor file |
+| Global theme | Install everything, System Settings → Global Theme → "Windows 11 Light" with "Use desktop layout from theme" checked | Bottom 48 px taskbar with Start, pinned apps centered, tray and a two-line clock on the right; ribbon wallpaper; Windows 11 colors, icons, cursors and decorations |
+| Global theme | `{"values":{"taskbar":{"alignment":"left"}}}`, rebuild and reapply | Start and pinned apps at the left edge |
+| Splash | Log out and back in | Start glyph with a spinning accent ring on the window color, fading in |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |

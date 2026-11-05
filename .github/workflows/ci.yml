@@ -17,3 +17,15 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run verify
+
+  kde:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    container:
+      image: archlinux:latest
+    steps:
+      - name: Install KDE packaging tools and Qt
+        run: pacman -Syu --noconfirm --needed plasma-workspace kpackage qt6-declarative qt6-svg libxml2 git
+      - uses: actions/checkout@v4
+      - name: Install and load the generated packages
+        run: tools/ci/kde-check.sh
