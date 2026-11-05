@@ -1,5 +1,5 @@
 import { VARIANTS } from "../catalog/enums.mjs";
-import { AURORAE_IDS, COLOR_SCHEME_IDS, CURSOR_THEME_IDS, ICON_THEME_IDS, LOOK_AND_FEEL_IDS, SDDM_THEME_ID, WALLPAPER_ID, DESKTOP_THEME_IDS, KONSOLE_SCHEME_IDS, PackageRoot } from "../catalog/packages.mjs";
+import { MANIFEST_FILE, AURORAE_IDS, COLOR_SCHEME_IDS, CURSOR_THEME_IDS, ICON_THEME_IDS, LOOK_AND_FEEL_IDS, SDDM_THEME_ID, WALLPAPER_ID, DESKTOP_THEME_IDS, KONSOLE_SCHEME_IDS, PackageRoot } from "../catalog/packages.mjs";
 import { PACKAGE_TEXT } from "../catalog/packageText.mjs";
 import { renderDesktopTheme } from "./desktopTheme.mjs";
 import { renderAurorae } from "./aurorae.mjs";
@@ -7,6 +7,7 @@ import { renderIconTheme } from "./iconTheme.mjs";
 import { renderCursorTheme } from "./cursorTheme.mjs";
 import { renderWallpaperPackage } from "./wallpaper.mjs";
 import { renderSddmTheme } from "./sddm.mjs";
+import { renderManifest } from "./manifest.mjs";
 import { renderLookAndFeel } from "./lookAndFeel.mjs";
 import { renderColorScheme } from "./colorScheme.mjs";
 import { renderKonsoleScheme } from "./konsole.mjs";
@@ -39,5 +40,6 @@ export function assemblePackages(values, glyphs, sources) {
     }).concat(
         underDirectory(`${PackageRoot.Wallpapers}/${WALLPAPER_ID}`, renderWallpaperPackage(values)),
         underDirectory(`${PackageRoot.Sddm}/${SDDM_THEME_ID}`, renderSddmTheme(values, glyphs, sources.loginQml)),
+        [textFile(MANIFEST_FILE, renderManifest(values))],
     );
 }

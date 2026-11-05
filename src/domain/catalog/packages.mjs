@@ -74,6 +74,7 @@ export const PackageRoot = Object.freeze({
 });
 
 export const PACKAGES_DIRECTORY = "packages";
+export const MANIFEST_FILE = "manifest.env";
 
 export const RenderedImage = Object.freeze({
     Preview: "contents/previews/preview.png",
