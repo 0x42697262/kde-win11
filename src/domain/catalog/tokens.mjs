@@ -258,6 +258,6 @@ export const CURSOR = Object.freeze({
     outlineWidth: metric(1.4, 0, 6),
     shadowOffset: metric(1, 0, 8),
     shadowBlur: metric(1.5, 0, 8),
-    waitFrames: metric(24, 1, 120),
+    waitFrames: metric(18, 1, 120),
     waitFrameMilliseconds: metric(40, 10, 1000),
 });
