@@ -16,6 +16,18 @@ TYPE_MS = 1100
 SECOND_SHOT_MS = 1700
 QUIT_MS = 2000
 WRONG_PASSWORD = "wrong"
+RIGHT_PASSWORD = "letmein"
+FRAME_MS = 50
+TYPE_EVERY_FRAMES = 3
+LOGIN_SCRIPT = (
+    (36, "showSignIn"),
+    (52, "type:" + WRONG_PASSWORD),
+    (70, "enter"),
+    (96, "type:" + RIGHT_PASSWORD),
+    (122, "enter"),
+)
+LOGIN_FRAMES = 140
+SPLASH_FRAMES = 40
 
 
 class RoleModel(QAbstractListModel):
@@ -52,7 +64,10 @@ class FakeSddm(QObject):
     @Slot(str, str, int)
     def login(self, user, password, session):
         print(f"login user={user} session={session}")
-        self.loginFailed.emit()
+        if password == RIGHT_PASSWORD:
+            self.loginSucceeded.emit()
+        else:
+            self.loginFailed.emit()
 
     @Slot()
     def powerOff(self):
@@ -80,6 +95,7 @@ def main():
     parser.add_argument("qml")
     parser.add_argument("output_prefix")
     parser.add_argument("--avatar", default="")
+    parser.add_argument("--record", action="store_true", help="save numbered frames of a scripted run instead of two screenshots")
     arguments = parser.parse_args()
 
     messages = []
@@ -133,6 +149,53 @@ def main():
     def quit_application():
         finished.append(True)
         application.quit()
+
+    def send_text(text):
+        for character in text:
+            for event_type in (QEvent.KeyPress, QEvent.KeyRelease):
+                QGuiApplication.sendEvent(view, QKeyEvent(event_type, ord(character.upper()), Qt.NoModifier, character))
+
+    def send_enter():
+        for event_type in (QEvent.KeyPress, QEvent.KeyRelease):
+            QGuiApplication.sendEvent(view, QKeyEvent(event_type, Qt.Key_Return, Qt.NoModifier, "\r"))
+
+    if arguments.record:
+        total = LOGIN_FRAMES if arguments.mode == "login" else SPLASH_FRAMES
+        pending = []
+        if arguments.mode == "splash":
+            root.setProperty("stage", SPLASH_STAGE)
+        else:
+            for frame, action in LOGIN_SCRIPT:
+                if action.startswith("type:"):
+                    for offset, character in enumerate(action[len("type:"):]):
+                        pending.append((frame + offset * TYPE_EVERY_FRAMES, "type:" + character))
+                else:
+                    pending.append((frame, action))
+        state = {"frame": 0}
+
+        def tick():
+            frame = state["frame"]
+            for when, action in pending:
+                if when != frame:
+                    continue
+                if action == "showSignIn":
+                    root.showSignIn()
+                elif action == "enter":
+                    send_enter()
+                else:
+                    send_text(action[len("type:"):])
+            view.grabWindow().save(f"{arguments.output_prefix}{frame:04d}.png")
+            state["frame"] = frame + 1
+            if state["frame"] >= total:
+                quit_application()
+            else:
+                QTimer.singleShot(FRAME_MS, tick)
+
+        QTimer.singleShot(FIRST_SHOT_MS, tick)
+        application.exec()
+        problems = [message for message in messages if any(marker in message for marker in PROBLEM_MARKERS)]
+        print(f"qml-preview: recorded {state['frame']} frames, {len(problems)} problem(s)")
+        return 1 if problems else 0
 
     if arguments.mode == "splash":
         root.setProperty("stage", SPLASH_STAGE)
