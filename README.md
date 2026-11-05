@@ -39,6 +39,7 @@ no menu shadow).
 | Wallpaper | Original ribbons, with a dark variant |
 | Splash | Start glyph above a spinning accent ring |
 | Login screen | SDDM theme with the lock clock, blurred wallpaper, avatar, password field, user list, session picker and power buttons |
+| Desktop menu | Windows entries (Display Settings, Configure Desktop and Wallpaper, Open Terminal) next to Folder View's New, Paste, Refresh and Sort by, plus KDE's Add Widgets and Edit Mode; session clutter hidden; every entry is a `desktopMenu.*` setting |
 | Menus and controls (optional) | Kvantum style: rounded menus with shadow and inset hover, Fluent check marks and chevrons, Windows 11 buttons, fields, check boxes, sliders, scrollbars and tabs; all KDE menu entries kept |
 | Konsole | Windows Terminal Campbell and One Half Light palettes |
 

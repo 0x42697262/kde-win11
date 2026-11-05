@@ -8,6 +8,7 @@ import { startHereSvg } from "./iconArtwork.mjs";
 import { renderIni } from "./ini.mjs";
 import { kPlugin, renderJson } from "./metadata.mjs";
 import { renderTokensQml } from "./qmlTokens.mjs";
+import { desktopMenuConfig } from "./desktopMenu.mjs";
 import { textFile } from "./files.mjs";
 
 /** @typedef {import("./files.mjs").OutputFile} OutputFile */
@@ -61,6 +62,7 @@ export function renderLayoutScript(values) {
         kickoffShortcut: KICKOFF_SHORTCUT,
         wallpaperPackage: `${PackageRoot.Wallpapers}/${WALLPAPER_ID}`,
         widgets: PLASMA_WIDGETS,
+        desktopMenu: desktopMenuConfig(values),
     };
     const lines = [
         `const settings = ${JSON.stringify(settings, null, 4)};`,
@@ -108,6 +110,18 @@ export function renderLayoutScript(values) {
         "}",
         "",
         "const wallpaper = \"file://\" + userDataPath() + \"/.local/share/\" + settings.wallpaperPackage + \"/\";",
+        "try {",
+        "    let menuGroup = new ConfigFile(settings.desktopMenu.file, settings.desktopMenu.groups[0]);",
+        "    settings.desktopMenu.groups.slice(1).forEach(function (group) {",
+        "        menuGroup = new ConfigFile(menuGroup, group);",
+        "    });",
+        "    menuGroup.writeEntry(settings.desktopMenu.trigger, settings.desktopMenu.plugin);",
+        "    const menuActions = new ConfigFile(menuGroup, settings.desktopMenu.trigger);",
+        "    Object.keys(settings.desktopMenu.actions).forEach(function (action) {",
+        "        menuActions.writeEntry(action, settings.desktopMenu.actions[action]);",
+        "    });",
+        "} catch (error) { print(error); }",
+        "",
         "desktops().forEach(function (desktop) {",
         "    desktop.wallpaperPlugin = settings.widgets.wallpaper;",
         "    desktop.currentConfigGroup = [\"Wallpaper\", settings.widgets.wallpaper, \"General\"];",

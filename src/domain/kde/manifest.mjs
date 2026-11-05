@@ -1,4 +1,6 @@
 import { VARIANTS } from "../catalog/enums.mjs";
+import { DESKTOP_MENU_FILE, DESKTOP_MENU_GROUPS, DESKTOP_MENU_PLUGIN, DESKTOP_MENU_TRIGGER } from "../catalog/kdeFormats.mjs";
+import { desktopMenuManifestEntries } from "./desktopMenu.mjs";
 import { KVANTUM_IDS, KVANTUM_ROOT, KVANTUM_STYLE_NAME, WIDGET_STYLE, AURORAE_IDS, AURORAE_PLUGIN, AURORAE_THEME_PREFIX, COLOR_SCHEME_IDS, CURSOR_THEME_IDS, DESKTOP_THEME_IDS, ICON_THEME_IDS, KONSOLE_SCHEME_IDS, LOOK_AND_FEEL_IDS, PROJECT, PackageRoot, SDDM_THEME_ID, WALLPAPER_ID } from "../catalog/packages.mjs";
 
 /** @typedef {import("../settings/document.mjs").SettingsValues} SettingsValues */
@@ -50,6 +52,11 @@ export function renderManifest(values) {
         ["KDE_WIN11_KVANTUM_PATHS", VARIANTS.map((variant) => `${KVANTUM_ROOT}/${KVANTUM_IDS[variant]}`).join(" ")],
         ["KDE_WIN11_KVANTUM_STYLE", KVANTUM_STYLE_NAME],
         ["KDE_WIN11_DEFAULT_WIDGET_STYLE", WIDGET_STYLE],
+        ["KDE_WIN11_DESKTOP_MENU_FILE", DESKTOP_MENU_FILE],
+        ["KDE_WIN11_DESKTOP_MENU_GROUPS", DESKTOP_MENU_GROUPS.join(" ")],
+        ["KDE_WIN11_DESKTOP_MENU_TRIGGER", DESKTOP_MENU_TRIGGER],
+        ["KDE_WIN11_DESKTOP_MENU_PLUGIN", DESKTOP_MENU_PLUGIN],
+        ["KDE_WIN11_DESKTOP_MENU", desktopMenuManifestEntries(values)],
         ...VARIANTS.flatMap((variant) => {
             const suffix = variant.toUpperCase();
             return /** @type {[string, string][]} */ ([
