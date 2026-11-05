@@ -6,6 +6,7 @@ import { assemblePackages } from "../src/domain/kde/assemble.mjs";
 import { listTree, writeTree } from "../src/adapters/fileTree.mjs";
 import { defaultSettingsPath, loadSettings } from "../src/adapters/settingsFile.mjs";
 import { loadGlyphSource } from "../src/adapters/glyphFiles.mjs";
+import { loadQmlSources } from "../src/adapters/qmlSources.mjs";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const SETTINGS_FLAG = "--settings";
@@ -24,7 +25,7 @@ const settingsPath = argumentAfter(SETTINGS_FLAG) ?? defaultSettingsPath(process
 const outDirectory = argumentAfter(OUT_FLAG) ?? join(process.env.XDG_DATA_HOME || join(homedir(), ".local", "share"));
 const settings = loadSettings(settingsPath);
 settings.problems.forEach((problem) => console.warn(`settings.invalid ${JSON.stringify({ key: problem.key, value: problem.value, problem: problem.problem })}`));
-const files = assemblePackages(settings.values, loadGlyphSource(ROOT));
+const files = assemblePackages(settings.values, loadGlyphSource(ROOT), loadQmlSources(ROOT));
 const renderedImages = Object.values(RenderedImage);
 const packagesRoot = join(ROOT, PACKAGES_DIRECTORY);
 const copiedImages = listTree(packagesRoot)
