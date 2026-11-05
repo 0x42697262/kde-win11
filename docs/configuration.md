@@ -68,6 +68,29 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `cursors.sizes` | numberList | `24`, `32`, `48`, `64` | 16 to 256 | Pixel sizes rendered into each cursor file |
 | `cursors.size` | number | `24` | 16 to 256 | Cursor size the installer applies |
 
+## Desktop menu
+
+| Key | Type | Default | Allowed | Description |
+|---|---|---|---|---|
+| `desktopMenu.displaySettings` | boolean | `true` |  | Display settings (Windows: Display settings) |
+| `desktopMenu.configureDesktop` | boolean | `true` |  | Desktop and wallpaper settings (Windows: Personalize) |
+| `desktopMenu.openTerminal` | boolean | `true` |  | Open a terminal here (Windows: Open in Terminal) |
+| `desktopMenu.nextWallpaper` | boolean | `true` |  | Next wallpaper image |
+| `desktopMenu.addWidgets` | boolean | `true` |  | KDE: add widgets |
+| `desktopMenu.editMode` | boolean | `true` |  | KDE: enter edit mode |
+| `desktopMenu.addPanel` | boolean | `true` |  | KDE: add a panel |
+| `desktopMenu.widgetActions` | boolean | `true` |  | KDE: actions of the widget under the pointer |
+| `desktopMenu.manageActivities` | boolean | `false` |  | KDE: manage activities |
+| `desktopMenu.configureShortcuts` | boolean | `false` |  | KDE: configure shortcuts |
+| `desktopMenu.remove` | boolean | `false` |  | KDE: remove this desktop |
+| `desktopMenu.runAssociatedApplication` | boolean | `false` |  | KDE: run the associated application |
+| `desktopMenu.runCommand` | boolean | `false` |  | KDE: run command |
+| `desktopMenu.lockScreen` | boolean | `false` |  | KDE: lock the screen |
+| `desktopMenu.logout` | boolean | `false` |  | KDE: log out |
+| `desktopMenu.separatorOne` | boolean | `true` |  | Separator after the editing entries |
+| `desktopMenu.separatorTwo` | boolean | `true` |  | Separator after the session entries |
+| `desktopMenu.separatorThree` | boolean | `true` |  | Separator before the settings entries |
+
 ## Colors (light)
 
 | Key | Type | Default | Allowed | Description |

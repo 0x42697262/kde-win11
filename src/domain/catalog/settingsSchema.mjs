@@ -2,6 +2,7 @@ import { SettingType, defineSetting } from "../settings/definitions.mjs";
 import { VALUE_DEFINITIONS } from "../settings/valueDefinitions.mjs";
 import { FavoritesDisplay, TaskbarAlignment, TitleAlignment, VARIANTS, Variant } from "./enums.mjs";
 import { ACCENT_DEFAULT } from "./accent.mjs";
+import { DESKTOP_MENU_ACTIONS } from "./kdeFormats.mjs";
 
 export const SETTINGS_SCHEMA_VERSION = 1;
 
@@ -33,6 +34,14 @@ const CORE_DEFINITIONS = [
     defineSetting({ key: "cursors.size", section: "Cursors", type: SettingType.Number, defaultValue: 24, minimum: 16, maximum: 256, description: "Cursor size the installer applies" }),
 ];
 
-export const SETTING_DEFINITIONS = Object.freeze([...CORE_DEFINITIONS, ...VALUE_DEFINITIONS]);
+const DESKTOP_MENU_DEFINITIONS = DESKTOP_MENU_ACTIONS.map((entry) => defineSetting({
+    key: `desktopMenu.${entry.setting}`,
+    section: "Desktop menu",
+    type: SettingType.Boolean,
+    defaultValue: entry.enabled,
+    description: entry.description,
+}));
+
+export const SETTING_DEFINITIONS = Object.freeze([...CORE_DEFINITIONS, ...DESKTOP_MENU_DEFINITIONS, ...VALUE_DEFINITIONS]);
 
 export const CONFIGURATION_EXAMPLE = Object.freeze({ schemaVersion: SETTINGS_SCHEMA_VERSION, values: { accent: { color: "#ff8c00" }, taskbar: { alignment: "left" } } });
