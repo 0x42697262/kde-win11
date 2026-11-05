@@ -24,6 +24,7 @@ directory. Node only builds and checks them.
 | `src/domain/settings` | Setting definitions, validation, the versioned sparse document |
 | `src/domain/theme` | Color math and palettes per variant |
 | `src/domain/font` | TrueType reader and the Fluent glyph source |
+| `src/domain/raster` | Cursor shapes, supersampling rasterizer, distance transform, Xcursor encoder |
 | `src/domain/svg` | SVG document helpers, shapes, Plasma nine-slice frames, masks and shadows |
 | `src/domain/kde` | One renderer per KDE package type (`desktopTheme`, `colorScheme`, `konsole`, …), plus `assemble.mjs` |
 | `src/domain/docs` | Generated documentation |
@@ -40,4 +41,5 @@ directory. Node only builds and checks them.
 | `color-schemes/KdeWin11{Light,Dark}.colors` | `$XDG_DATA_HOME/color-schemes/` | `colorScheme.mjs` |
 | `aurorae/themes/kde-win11-{light,dark}` | `$XDG_DATA_HOME/aurorae/themes/` | `aurorae.mjs` |
 | `icons/kde-win11`, `icons/kde-win11-dark` | `$XDG_DATA_HOME/icons/` | `iconTheme.mjs`, `iconArtwork.mjs` |
+| `icons/kde-win11-cursors`, `icons/kde-win11-cursors-dark` | `$XDG_DATA_HOME/icons/` | `cursorTheme.mjs` |
 | `konsole/KdeWin11{Light,Dark}.colorscheme` | `$XDG_DATA_HOME/konsole/` | `konsole.mjs` |

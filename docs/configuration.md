@@ -319,7 +319,7 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `metrics.cursor.outlineWidth` | number | `1.4` | 0 to 6 | Metric `outlineWidth` |
 | `metrics.cursor.shadowOffset` | number | `1` | 0 to 8 | Metric `shadowOffset` |
 | `metrics.cursor.shadowBlur` | number | `1.5` | 0 to 8 | Metric `shadowBlur` |
-| `metrics.cursor.waitFrames` | number | `24` | 1 to 120 | Metric `waitFrames` |
+| `metrics.cursor.waitFrames` | number | `18` | 1 to 120 | Metric `waitFrames` |
 | `metrics.cursor.waitFrameMilliseconds` | number | `40` | 10 to 1000 | Metric `waitFrameMilliseconds` |
 
 ## Text

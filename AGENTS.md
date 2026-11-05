@@ -70,6 +70,8 @@ Generated files are never edited by hand: everything under `packages/` and
 | Icon themes are `index.theme` plus `Directories` with `Size`, `Context` and `Type=Fixed` or `Scalable` (`MinSize`, `MaxSize`); `Inherits` provides fallbacks | freedesktop Icon Theme Specification |
 | KDE recolors SVG icons that use `<style id="current-color-scheme">` and `class="ColorScheme-*"` with `fill="currentColor"`; GTK recolors only `-symbolic` names | KIconThemes `KIconEngine`, Breeze icons |
 | Fluent `wifi_1` is the full-strength glyph and `wifi_4` the weakest | Rendered glyph sheet |
+| Xcursor files start with `Xcur`, a 16-byte header and a table of contents; image chunks (type `0xfffd0002`, subtype = nominal size) carry width, height, hotspot, delay and premultiplied little-endian ARGB | `man Xcursor`, libXcursor `file.c` |
+| Cursor themes live in `$XDG_DATA_HOME/icons/<name>/cursors/`; `index.theme` `Inherits` provides missing shapes; aliases are symlinks | libXcursor library lookup |
 | **Unverified in a live session:** the nine-slice output was checked by composing the elements in Chromium (`getBBox` plus canvas), not inside plasmashell | Local render |
 
 Add a row whenever you rely on a third-party behavior.
@@ -89,4 +91,6 @@ Every PR adds one line per behavior change: what to do, what to see.
 | Window decoration | `{"values":{"titlebar":{"alignment":"center"}}}`, rebuild | Titles centered |
 | Icons | Copy `packages/icons/*` to `~/.local/share/icons/`, pick "Windows 11" under Icons | Yellow folders with blue glyphs in Dolphin, Fluent toolbar icons that follow the color scheme, colored file type pages, gradient app tiles in the launcher |
 | Icons | Change the accent with `{"values":{"accent":{"color":"#e3008c"}}}`, rebuild | Start icon gradient turns pink |
+| Cursors | Copy `packages/icons/kde-win11-cursors*` to `~/.local/share/icons/`, pick "Windows 11 Cursors" under Cursors | White arrow with a black outline and soft shadow; spinning accent ring while apps start; sizes 24 to 64 stay sharp |
+| Cursors | `{"values":{"cursors":{"sizes":[32,48]}}}`, rebuild | Only 32 and 48 px images in each cursor file |
 | Konsole | Copy `packages/konsole/*` to `~/.local/share/konsole/`, pick "Windows 11 Dark" in the profile | Windows Terminal Campbell colors |
