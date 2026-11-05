@@ -26,7 +26,7 @@ import { formatNumber } from "../numbers.mjs";
  * }} FrameSpec
  */
 /** @typedef {{ width: number, height: number, render: (originX: number, originY: number) => { body: string, defs: string } }} SheetItem */
-/** @typedef {{ prefix: string, extents: Sides, radius: number, color: ColorToken }} ShadowSpec */
+/** @typedef {{ prefix: string, extents: Sides, radius: number, color: ColorToken, name?: string, hints?: boolean }} ShadowSpec */
 
 const MASK_PREFIX = "mask";
 const FAR_DISTANCE = 1048576;
@@ -215,7 +215,7 @@ export function shadowItem(spec) {
  */
 function renderShadow(spec, originX, originY) {
     const { extents, radius, color } = spec;
-    const prefix = elementId(SHADOW_PREFIX, spec.prefix);
+    const prefix = spec.name ?? elementId(SHADOW_PREFIX, spec.prefix);
     /** @type {string[]} */
     const defs = [];
     /** @type {string[]} */
@@ -269,6 +269,9 @@ function renderShadow(spec, originX, originY) {
     edge("right", rightTile, { x: rightX + radius, y: sideY, width: extents.right, height: FRAME_CENTER_SIZE }, { x1: rightX + radius, y1: sideY, x2: rightX + radius + extents.right, y2: sideY });
     const hintY = sideY + FRAME_CENTER_SIZE + SHEET_GAP;
     const hintX = originX + cornerSpan * 2;
+    if (spec.hints === false) {
+        return { body: body.join("\n"), defs: defs.join("") };
+    }
     body.push(
         hintRect(elementId(prefix, "hint-left-margin"), { x: hintX, y: hintY, width: Math.max(extents.left, HINT_THICKNESS), height: HINT_THICKNESS }),
         hintRect(elementId(prefix, "hint-right-margin"), { x: hintX, y: hintY + HINT_THICKNESS * 2, width: Math.max(extents.right, HINT_THICKNESS), height: HINT_THICKNESS }),

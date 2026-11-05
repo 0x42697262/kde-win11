@@ -55,6 +55,13 @@ export const LIGHT_BASE = Object.freeze({
     subtleFillPressed: tone(BLACK, 0.0241),
     taskIndicator: tone("#868686"),
     taskAttention: tone("#ff8c00", 0.28),
+    controlFill: tone(WHITE, 0.7),
+    controlFillHover: tone("#f9f9f9", 0.5),
+    controlFillPressed: tone("#f9f9f9", 0.3),
+    controlStroke: tone(BLACK, 0.0578),
+    controlStrokeBottom: tone(BLACK, 0.1622),
+    controlStrongStroke: tone(BLACK, 0.446),
+    menuSurface: tone("#f9f9f9"),
     titlebar: tone("#f3f3f3"),
     titlebarInactive: tone("#f3f3f3"),
     titleText: tone("#1a1a1a"),
@@ -98,6 +105,13 @@ export const DARK_BASE = Object.freeze({
     subtleFillPressed: tone(WHITE, 0.0419),
     taskIndicator: tone("#9d9d9d"),
     taskAttention: tone("#ff8c00", 0.34),
+    controlFill: tone(WHITE, 0.0605),
+    controlFillHover: tone(WHITE, 0.0837),
+    controlFillPressed: tone(WHITE, 0.0326),
+    controlStroke: tone(WHITE, 0.0698),
+    controlStrokeBottom: tone(WHITE, 0.093),
+    controlStrongStroke: tone(WHITE, 0.545),
+    menuSurface: tone("#2c2c2c"),
     titlebar: tone("#202020"),
     titlebarInactive: tone("#202020"),
     titleText: tone(WHITE),
@@ -201,6 +215,19 @@ export const TOOLTIP = Object.freeze({
     padding: metric(8, 0, 48),
     shadowSize: metric(12, 0, 96),
     shadowOffset: metric(4, 0, 48),
+});
+
+export const CONTROLS = Object.freeze({
+    radius: metric(4, 0, 16),
+    menuRadius: metric(8, 0, 24),
+    menuShadow: metric(10, 0, 32),
+    menuItemHeight: metric(30, 16, 64),
+    checkSize: metric(18, 10, 40),
+    scrollWidth: metric(12, 4, 32),
+    sliderHandle: metric(20, 8, 48),
+    progressThickness: metric(4, 1, 16),
+    tooltipShadow: metric(6, 0, 32),
+    indicatorSize: metric(12, 6, 32),
 });
 
 export const LIST_ITEM = Object.freeze({

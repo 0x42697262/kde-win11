@@ -101,6 +101,13 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `colors.light.subtleFillPressed` | color | `"#06000000"` |  | Color `subtleFillPressed` as #RRGGBB or #AARRGGBB |
 | `colors.light.taskIndicator` | color | `"#ff868686"` |  | Color `taskIndicator` as #RRGGBB or #AARRGGBB |
 | `colors.light.taskAttention` | color | `"#47ff8c00"` |  | Color `taskAttention` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlFill` | color | `"#b3ffffff"` |  | Color `controlFill` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlFillHover` | color | `"#80f9f9f9"` |  | Color `controlFillHover` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlFillPressed` | color | `"#4df9f9f9"` |  | Color `controlFillPressed` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlStroke` | color | `"#0f000000"` |  | Color `controlStroke` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlStrokeBottom` | color | `"#29000000"` |  | Color `controlStrokeBottom` as #RRGGBB or #AARRGGBB |
+| `colors.light.controlStrongStroke` | color | `"#72000000"` |  | Color `controlStrongStroke` as #RRGGBB or #AARRGGBB |
+| `colors.light.menuSurface` | color | `"#fff9f9f9"` |  | Color `menuSurface` as #RRGGBB or #AARRGGBB |
 | `colors.light.titlebar` | color | `"#fff3f3f3"` |  | Color `titlebar` as #RRGGBB or #AARRGGBB |
 | `colors.light.titlebarInactive` | color | `"#fff3f3f3"` |  | Color `titlebarInactive` as #RRGGBB or #AARRGGBB |
 | `colors.light.titleText` | color | `"#ff1a1a1a"` |  | Color `titleText` as #RRGGBB or #AARRGGBB |
@@ -146,6 +153,13 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `colors.dark.subtleFillPressed` | color | `"#0bffffff"` |  | Color `subtleFillPressed` as #RRGGBB or #AARRGGBB |
 | `colors.dark.taskIndicator` | color | `"#ff9d9d9d"` |  | Color `taskIndicator` as #RRGGBB or #AARRGGBB |
 | `colors.dark.taskAttention` | color | `"#57ff8c00"` |  | Color `taskAttention` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlFill` | color | `"#0fffffff"` |  | Color `controlFill` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlFillHover` | color | `"#15ffffff"` |  | Color `controlFillHover` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlFillPressed` | color | `"#08ffffff"` |  | Color `controlFillPressed` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlStroke` | color | `"#12ffffff"` |  | Color `controlStroke` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlStrokeBottom` | color | `"#18ffffff"` |  | Color `controlStrokeBottom` as #RRGGBB or #AARRGGBB |
+| `colors.dark.controlStrongStroke` | color | `"#8bffffff"` |  | Color `controlStrongStroke` as #RRGGBB or #AARRGGBB |
+| `colors.dark.menuSurface` | color | `"#ff2c2c2c"` |  | Color `menuSurface` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titlebar` | color | `"#ff202020"` |  | Color `titlebar` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titlebarInactive` | color | `"#ff202020"` |  | Color `titlebarInactive` as #RRGGBB or #AARRGGBB |
 | `colors.dark.titleText` | color | `"#ffffffff"` |  | Color `titleText` as #RRGGBB or #AARRGGBB |
@@ -281,6 +295,16 @@ Rebuild and install with `tools/install.sh` after editing. Invalid values are ig
 | `metrics.listItem.padding` | number | `6` | 0 to 24 | Metric `padding` |
 | `metrics.listItem.selectionPillWidth` | number | `3` | 0 to 8 | Metric `selectionPillWidth` |
 | `metrics.listItem.selectionPillInset` | number | `10` | 0 to 48 | Metric `selectionPillInset` |
+| `metrics.controls.radius` | number | `4` | 0 to 16 | Metric `radius` |
+| `metrics.controls.menuRadius` | number | `8` | 0 to 24 | Metric `menuRadius` |
+| `metrics.controls.menuShadow` | number | `10` | 0 to 32 | Metric `menuShadow` |
+| `metrics.controls.menuItemHeight` | number | `30` | 16 to 64 | Metric `menuItemHeight` |
+| `metrics.controls.checkSize` | number | `18` | 10 to 40 | Metric `checkSize` |
+| `metrics.controls.scrollWidth` | number | `12` | 4 to 32 | Metric `scrollWidth` |
+| `metrics.controls.sliderHandle` | number | `20` | 8 to 48 | Metric `sliderHandle` |
+| `metrics.controls.progressThickness` | number | `4` | 1 to 16 | Metric `progressThickness` |
+| `metrics.controls.tooltipShadow` | number | `6` | 0 to 32 | Metric `tooltipShadow` |
+| `metrics.controls.indicatorSize` | number | `12` | 6 to 32 | Metric `indicatorSize` |
 | `metrics.titlebar.height` | number | `32` | 16 to 96 | Metric `height` |
 | `metrics.titlebar.buttonWidth` | number | `46` | 16 to 96 | Metric `buttonWidth` |
 | `metrics.titlebar.glyphSize` | number | `10` | 6 to 32 | Metric `glyphSize` |

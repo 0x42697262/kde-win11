@@ -46,5 +46,6 @@ directory. Node only builds and checks them.
 | `icons/kde-win11`, `icons/kde-win11-dark` | `$XDG_DATA_HOME/icons/` | `iconTheme.mjs`, `iconArtwork.mjs` |
 | `icons/kde-win11-cursors`, `icons/kde-win11-cursors-dark` | `$XDG_DATA_HOME/icons/` | `cursorTheme.mjs` |
 | `konsole/KdeWin11{Light,Dark}.colorscheme` | `$XDG_DATA_HOME/konsole/` | `konsole.mjs` |
+| `Kvantum/KdeWin11{Light,Dark}` | `$XDG_CONFIG_HOME/Kvantum/` (with `--kvantum`) | `kvantum.mjs` |
 | `sddm/themes/kde-win11` | `/usr/share/sddm/themes/` (with `--sddm`) | `sddm.mjs`, `src/qml/sddm` |
 | `manifest.env` | Read by `tools/install.sh` | `manifest.mjs` |
